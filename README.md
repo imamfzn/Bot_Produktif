@@ -1,5 +1,5 @@
 # Bot Produktif
-[![Build Status](https://travis-ci.org/imamfzn/Bot_Produktif.svg?branch=master)](https://travis-ci.org/imamfzn/Bot_Produktif)
+[![Build Status](https://travis-ci.org/imamfzn/Bot_Produktif.svg?branch=branch_bot_eki)](https://travis-ci.org/imamfzn/Bot_Produktif)
 
 Bot ini berfungsi untuk melakukan broadcast adzan, juga sebagai pengingat adzan.
 Bot ini akan diimplementasikan pada Official Account Line Assalam Polban (@ ...).
