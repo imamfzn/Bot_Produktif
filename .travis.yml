@@ -18,5 +18,5 @@ env:
 deploy:
   provider: azure_web_apps
   skip_cleanup: true
-  file: "webapps/bot_produktif.jar"
+  file: "bot_produktif.jar"
   on: branch_bot_eki
