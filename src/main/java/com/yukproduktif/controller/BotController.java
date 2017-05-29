@@ -32,7 +32,6 @@ public class BotController
     @Qualifier("com.linecorp.channel_access_token")
     String lChannelAccessToken;
     
-    @Autowired
     LineBotService botService = new LineBotService(lChannelAccessToken);
 
     @RequestMapping(value="/callback", method=RequestMethod.POST)
@@ -75,25 +74,8 @@ public class BotController
             if (!payload.events[0].message.type.equals("text")){
                 replyToUser(payload.events[0].replyToken, "Unknown message");
             } else {
-                msgText = payload.events[0].message.text;
                 msgText = "--DEBUG EDISI RAMADHAN--";
-
-                if (!msgText.contains("bot leave")){
-                    //try {
-                    	botService.pushMessage(idTarget, msgText);
-                        //getMessageData(msgText, idTarget);
-                    //} catch (IOException e) {
-                     //   System.out.println("Exception is raised ");
-                     //   e.printStackTrace();
-                    //}
-                } else {
-                    if (payload.events[0].source.type.equals("group")){
-                        leaveGR(payload.events[0].source.groupId, "group");
-                    } else if (payload.events[0].source.type.equals("room")){
-                        leaveGR(payload.events[0].source.roomId, "room");
-                    }
-                }
-
+                botService.pushMessage(idTarget, msgText);
             }
         }
          

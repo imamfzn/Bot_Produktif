@@ -5,13 +5,11 @@ import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
-import com.yukproduktif.model.*;
 
 import retrofit2.Response;
 
 public class LineBotService {
 	private String channelAccessToken;
-	private Payload payload;
 	
 	public LineBotService(String channelAccessToken){
 		this.channelAccessToken = channelAccessToken;
