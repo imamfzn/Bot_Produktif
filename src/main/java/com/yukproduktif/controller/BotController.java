@@ -84,6 +84,14 @@ public class BotController
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
+    @RequestMapping(value="/reminder", method=RequestMethod.POST)
+    public ResponseEntity<String> reminder(@RequestBody String data){
+    	String MESSAGE = "POST SUKSES ....";
+    	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
+    	botService.setChannelAccessToken(lChannelAccessToken);
+    	botService.pushMessage(ID_TARGET, MESSAGE);
+    	return new ResponseEntity<String>(HttpStatus.OK);
+    }
     private void getMessageData(String message, String targetID) throws IOException{
         if (message!=null){
             pushMessage(targetID, message);
