@@ -50,6 +50,8 @@ public class BotController
         }
         Gson gson = new Gson();
         Payload payload = gson.fromJson(aPayload, Payload.class);
+        
+        botService.setChannelAccessToken(lChannelAccessToken);
 
         String msgText = " ";
         String idTarget = " ";

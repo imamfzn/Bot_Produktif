@@ -12,9 +12,7 @@ import com.linecorp.bot.model.response.BotApiResponse;
 import retrofit2.Response;
 
 public class LineBotService {
-	
-	@Autowired
-    @Qualifier("com.linecorp.channel_access_token")
+
 	private String channelAccessToken;
 	
 	public LineBotService(String accessToken){
