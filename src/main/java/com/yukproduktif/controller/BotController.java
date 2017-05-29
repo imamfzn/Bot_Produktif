@@ -32,6 +32,7 @@ public class BotController
     @Qualifier("com.linecorp.channel_access_token")
     String lChannelAccessToken;
     
+    @Autowired
     LineBotService botService = new LineBotService(lChannelAccessToken);
 
     @RequestMapping(value="/callback", method=RequestMethod.POST)
