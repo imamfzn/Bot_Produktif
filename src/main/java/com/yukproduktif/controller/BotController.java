@@ -78,13 +78,13 @@ public class BotController
                 msgText = "--DEBUG EDISI RAMADHAN--";
 
                 if (!msgText.contains("bot leave")){
-                    try {
+                    //try {
                     	botService.pushMessage(idTarget, msgText);
                         //getMessageData(msgText, idTarget);
-                    } catch (IOException e) {
-                        System.out.println("Exception is raised ");
-                        e.printStackTrace();
-                    }
+                    //} catch (IOException e) {
+                     //   System.out.println("Exception is raised ");
+                     //   e.printStackTrace();
+                    //}
                 } else {
                     if (payload.events[0].source.type.equals("group")){
                         leaveGR(payload.events[0].source.groupId, "group");
