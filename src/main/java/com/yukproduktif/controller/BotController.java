@@ -4,7 +4,6 @@ package com.yukproduktif.controller;
 import com.google.gson.Gson;
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.client.LineSignatureValidator;
-import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
@@ -48,9 +47,14 @@ public class BotController
         {
             System.out.println("Payload: " + aPayload);
         }
+        
+        //Mengubah data request body menjadi bentuk object
         Gson gson = new Gson();
         Payload payload = gson.fromJson(aPayload, Payload.class);
         
+        //Set channel access token to bot service
+        //Issue : harusnya kalau bisa gak perlu di set setiap waktu
+        //To-do : buat set channel accest oken on the fly , autowired ?
         botService.setChannelAccessToken(lChannelAccessToken);
 
         String msgText = " ";
@@ -83,21 +87,32 @@ public class BotController
          
         return new ResponseEntity<String>(HttpStatus.OK);
     }
-
+    
+    /**
+     * @author Muhammad Imam Fauzan
+     * @purpose Menerima data yang dikirim dari service reminder, untuk broadcast reminder ke semua line follower bot
+     * @param data : request body dari reminder service, yang isinya bakal di handle, untuk broadcast ke line follower
+     * @return HttpStatus
+     */
     @RequestMapping(value="/reminder", method=RequestMethod.POST)
     public ResponseEntity<String> reminder(@RequestBody String data){
-    	String MESSAGE = "POST SUKSES ....";
+    	/* DEBUG */
+    	String MESSAGE = "POST SUKSES ...." + "\n" + data;
     	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
     	botService.setChannelAccessToken(lChannelAccessToken);
     	botService.pushMessage(ID_TARGET, MESSAGE);
+    	/* DEBUG */
+    	
+    	/**
+    	 * to-do :
+    	 * Buat model untuk menampung request body dari sevice reminder (pake gson)
+    	 * Handle setiap jenis reminder yang masuk dari service reminder
+    	 * Query ke database, line follower yang mengaktifkan reminder
+    	 * Kirim reminder ke line follower ..
+    	 */
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
-    private void getMessageData(String message, String targetID) throws IOException{
-        if (message!=null){
-            pushMessage(targetID, message);
-        }
-    }
-
+    
     private void replyToUser(String rToken, String messageToUser){
         TextMessage textMessage = new TextMessage(messageToUser);
         ReplyMessage replyMessage = new ReplyMessage(rToken, textMessage);
@@ -108,45 +123,6 @@ public class BotController
                 .replyMessage(replyMessage)
                 .execute();
             System.out.println("Reply Message: " + response.code() + " " + response.message());
-        } catch (IOException e) {
-            System.out.println("Exception is raised ");
-            e.printStackTrace();
-        }
-    }
-
-    private void pushMessage(String sourceId, String txt){
-        TextMessage textMessage = new TextMessage(txt);
-        PushMessage pushMessage = new PushMessage(sourceId,textMessage);
-        try {
-            Response<BotApiResponse> response = LineMessagingServiceBuilder
-            .create(lChannelAccessToken)
-            .build()
-            .pushMessage(pushMessage)
-            .execute();
-            System.out.println(response.code() + " " + response.message());
-        } catch (IOException e) {
-            System.out.println("Exception is raised ");
-            e.printStackTrace();
-        }
-    }
-
-    private void leaveGR(String id, String type){
-        try {
-            if (type.equals("group")){
-                Response<BotApiResponse> response = LineMessagingServiceBuilder
-                    .create(lChannelAccessToken)
-                    .build()
-                    .leaveGroup(id)
-                    .execute();
-                System.out.println(response.code() + " " + response.message());
-            } else if (type.equals("room")){
-                Response<BotApiResponse> response = LineMessagingServiceBuilder
-                    .create(lChannelAccessToken)
-                    .build()
-                    .leaveRoom(id)
-                    .execute();
-                System.out.println(response.code() + " " + response.message());
-            }
         } catch (IOException e) {
             System.out.println("Exception is raised ");
             e.printStackTrace();
