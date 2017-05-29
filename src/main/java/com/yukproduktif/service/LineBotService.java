@@ -9,10 +9,10 @@ import com.linecorp.bot.model.response.BotApiResponse;
 import retrofit2.Response;
 
 public class LineBotService {
-	private String channelAccessToken;
+	private static final String channelAccessToken = "7WzW2IbsI7mFlqM3AKAQ/cqM6/Tqy1RjRm7mcqiymXX4dFee4XrirVds3nqgVX7Srp3VSa84I9pCXVXvoRy04V/XuhngfJLtehdGiFliQhUduLoi9hl06OCgaXgvECscNRDKvindxAvVdZiyL+QLRAdB04t89/1O/w1cDnyilFU=";
 	
-	public LineBotService(String channelAccessToken){
-		this.channelAccessToken = channelAccessToken;
+	public LineBotService(){
+		
 	}
 	
 	public void pushMessage(String sourceId, String message){
