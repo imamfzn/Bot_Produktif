@@ -18,6 +18,7 @@ import retrofit2.Response;
 import java.io.IOException;
 
 import com.yukproduktif.model.*;
+import com.yukproduktif.service.*;
 
 @RestController
 @RequestMapping(value="/linebot")
@@ -30,6 +31,8 @@ public class BotController
     @Autowired
     @Qualifier("com.linecorp.channel_access_token")
     String lChannelAccessToken;
+    
+    LineBotService botService = new LineBotService(lChannelAccessToken);
 
     @RequestMapping(value="/callback", method=RequestMethod.POST)
     public ResponseEntity<String> callback(
@@ -72,11 +75,12 @@ public class BotController
                 replyToUser(payload.events[0].replyToken, "Unknown message");
             } else {
                 msgText = payload.events[0].message.text;
-                msgText = msgText.toLowerCase();
+                msgText = "--DEBUG EDISI RAMADHAN--";
 
                 if (!msgText.contains("bot leave")){
                     try {
-                        getMessageData(msgText, idTarget);
+                    	botService.pushMessage(idTarget, msgText);
+                        //getMessageData(msgText, idTarget);
                     } catch (IOException e) {
                         System.out.println("Exception is raised ");
                         e.printStackTrace();
@@ -155,4 +159,22 @@ public class BotController
             e.printStackTrace();
         }
     }
+    
+    /**
+     * @author Muhammad Imam Fauzan
+     * @purpose Menghandle request message yang dikirim dari user line ke bot
+     * @param message : request message yang dikirim dari user line
+     */
+    private void botAction(String message){
+    	switch (message) {
+    		case "bot adzan" :
+    			
+    		break;
+    		case "bot reminder" :
+    			
+    		break;
+    		
+    	}
+    }
+ 
 }
