@@ -63,23 +63,28 @@ public class BotController
 
         if (eventType.equals("join")){
             if (payload.events[0].source.type.equals("group")){
-                replyToUser(payload.events[0].replyToken, "Hello Group");
+            	botService.replyToUser(payload.events[0].replyToken, "Hello Group");
             }
-            if (payload.events[0].source.type.equals("room")){
-                replyToUser(payload.events[0].replyToken, "Hello Room");
+            
+            else if (payload.events[0].source.type.equals("room")){
+            	botService.replyToUser(payload.events[0].replyToken, "Hello Room");
             }
-        } else if (eventType.equals("message")){
+        } 
+        
+        else if (eventType.equals("message")){
             if (payload.events[0].source.type.equals("group")){
                 idTarget = payload.events[0].source.groupId;
-            } else if (payload.events[0].source.type.equals("room")){
+            } 
+            
+            else if (payload.events[0].source.type.equals("room")){
                 idTarget = payload.events[0].source.roomId;
-            } else if (payload.events[0].source.type.equals("user")){
+            } 
+            
+            else if (payload.events[0].source.type.equals("user")){
                 idTarget = payload.events[0].source.userId;
             }
-
-            if (!payload.events[0].message.type.equals("text")){
-                replyToUser(payload.events[0].replyToken, "Unknown message");
-            } else {
+            
+            if (payload.events[0].message.type.equals("text")){
                 msgText = "--DEBUG EDISI RAMADHAN--";
                 botService.pushMessage(idTarget, msgText);
             }
@@ -111,22 +116,6 @@ public class BotController
     	 * Kirim reminder ke line follower ..
     	 */
     	return new ResponseEntity<String>(HttpStatus.OK);
-    }
-    
-    private void replyToUser(String rToken, String messageToUser){
-        TextMessage textMessage = new TextMessage(messageToUser);
-        ReplyMessage replyMessage = new ReplyMessage(rToken, textMessage);
-        try {
-            Response<BotApiResponse> response = LineMessagingServiceBuilder
-                .create(lChannelAccessToken)
-                .build()
-                .replyMessage(replyMessage)
-                .execute();
-            System.out.println("Reply Message: " + response.code() + " " + response.message());
-        } catch (IOException e) {
-            System.out.println("Exception is raised ");
-            e.printStackTrace();
-        }
     }
     
     /**
