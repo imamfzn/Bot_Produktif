@@ -28,7 +28,7 @@ public class AdzanService {
 	 * @param date
 	 * @return
 	 */
-	public PrayerTimes getPrayerTimes(Date date){
+	public String getPrayerTimes(){
 		Date now = new Date();
 		String serviceURL = this.URL + 
 				"tanggal=" + now.getDate() + 
@@ -41,7 +41,7 @@ public class AdzanService {
 			//Gson gson = new Gson();
 		    //PrayerTimes adzan = gson.fromJson(response, PrayerTimes.class);
 			
-			System.out.println(response);
+			return response;
 			
 		} catch (UnirestException e) {
 			e.printStackTrace();

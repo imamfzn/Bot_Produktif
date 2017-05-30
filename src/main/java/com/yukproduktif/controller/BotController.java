@@ -144,5 +144,11 @@ public class BotController
     private void sendNearestMosque(/*location */){
     	
     }
- 
+    
+    @RequestMapping(value="/testadzan", method=RequestMethod.GET)
+    public ResponseEntity<String> testAdzan(){
+    	AdzanService adzan = new AdzanService();
+    	System.out.println(adzan.getPrayerTimes());
+    	return new ResponseEntity<String>(HttpStatus.OK);
+    }
 }
