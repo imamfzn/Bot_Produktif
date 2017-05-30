@@ -1,23 +1,16 @@
 
 package com.yukproduktif.controller;
+import com.yukproduktif.model.*;
+import com.yukproduktif.service.*;
 
 import com.google.gson.Gson;
-import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.client.LineSignatureValidator;
-import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.response.BotApiResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import retrofit2.Response;
-
-import java.io.IOException;
-
-import com.yukproduktif.model.*;
-import com.yukproduktif.service.*;
 
 @RestController
 @RequestMapping(value="/linebot")

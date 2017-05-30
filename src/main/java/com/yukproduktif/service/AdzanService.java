@@ -12,7 +12,7 @@ public class AdzanService {
 	public AdzanService(){};
 	
 	/**
-	 * To-do
+	 * To-do:
 	 * Ambil data adzan lewat endpoint service adzan
 	 * @param date
 	 * @return
