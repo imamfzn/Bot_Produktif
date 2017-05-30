@@ -111,6 +111,7 @@ public class BotController
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
     
+    
     /**
      * @author Muhammad Imam Fauzan
      * Menghandle request message yang dikirim dari user line ke bot
