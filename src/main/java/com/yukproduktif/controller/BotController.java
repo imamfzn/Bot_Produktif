@@ -95,12 +95,12 @@ public class BotController
     @RequestMapping(value="/reminder", method=RequestMethod.POST)
     public ResponseEntity<String> reminder(@RequestBody String data){
     	/* DEBUG */
-    	String MESSAGE = "POST SUKSES ...." + "\n" + data;
+        Gson gson = new Gson();
+        DataReminder dataReminder = gson.fromJson(data, DataReminder.class);
     	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
     	botService.setChannelAccessToken(lChannelAccessToken);
-    	botService.pushMessage(ID_TARGET, MESSAGE);
+    	botService.pushMessage(ID_TARGET, dataReminder);
     	/* DEBUG */
-    	
     	/**
     	 * to-do :
     	 * Buat model untuk menampung request body dari sevice reminder (pake gson)
