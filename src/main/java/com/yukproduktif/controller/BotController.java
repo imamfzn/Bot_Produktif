@@ -134,5 +134,21 @@ public class BotController
     		
     	}
     }
+    
+    //To-Do
+    //Kirim informasi adzan yang di request dari user
+    //Panggil service adzan
+    //Kirim data adzan yang udah diambil dari service adzan pake LineBotService
+    private void sendAdzanInformation(){
+    	
+    }
+    
+    //To-Do
+    //Kirim 5 masjid terdekat berdasarkan lokasi user
+    //Panggil service masjid
+    //kirim data masjid menggunakan carousel 5 kolom, kirim pake LineBotService
+    private void sendNearestMosque(/*location */){
+    	
+    }
  
 }
