@@ -26,6 +26,10 @@ public class AdzanService {
 	private static final String LOCATION = "bandung";
 	public AdzanService(){};
 	
+	/**
+	 * Get jadwal adzan dari service adzan 
+	 * @return
+	 */
 	public PrayerTimes getPrayerTimes(){
 		Date now = new Date();
 		String serviceURL = this.URL + now.getDate() + "/" + now.getMonth() + "/" + now.getYear() + "/" + this.LOCATION;
@@ -35,16 +39,15 @@ public class AdzanService {
 			SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 			
 		    PrayerTimes adzan = new PrayerTimes(
-		    		new Time(format.parse(response.getString("Shubuh")).getTime()),
-		    		new Time(format.parse(response.getString("Sunrise")).getTime()),
-		    		new Time(format.parse(response.getString("Dzuhur")).getTime()),
-		    		new Time(format.parse(response.getString("Ashar")).getTime()),
-		    		new Time(format.parse(response.getString("Sunset")).getTime()),
-		    		new Time(format.parse(response.getString("Magrib")).getTime()),
-		    		new Time(format.parse(response.getString("Isya")).getTime())		    		
+		    		new Time(format.parse(response.getString("shubuh")).getTime()),
+		    		new Time(format.parse(response.getString("sunrise")).getTime()),
+		    		new Time(format.parse(response.getString("dzuhur")).getTime()),
+		    		new Time(format.parse(response.getString("ashar")).getTime()),
+		    		new Time(format.parse(response.getString("sunset")).getTime()),
+		    		new Time(format.parse(response.getString("magrib")).getTime()),
+		    		new Time(format.parse(response.getString("isya")).getTime())		    		
 		    );
 		    		
-			System.out.println(adzan.toString());
 			return adzan;
 
 		} catch (UnirestException e) {
