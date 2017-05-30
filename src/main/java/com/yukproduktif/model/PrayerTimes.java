@@ -2,6 +2,7 @@ package com.yukproduktif.model;
 
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.Date;
 
 
 public class PrayerTimes {
@@ -21,6 +22,18 @@ public class PrayerTimes {
 		this.sunset = sunset;
 		this.magrib = magrib;
 		this.isya = isya;
+	}
+	
+	@Override
+	public String toString(){
+		Date now = new Date();
+		String format = "Jadwal adzan hari ini " + now.toString() + " di Bandung:\n"
+				+ "Shubuh  : " + this.shubuh.toString() + "\n"
+				+ "Dzuhur  : " + this.dzuhur.toString() + "\n"
+				+ "Ashar   : " + this.ashar.toString() + "\n"
+				+ "Maghrib : " + this.magrib.toString() + "\n"
+				+ "Isya    : " + this.isya.toString() + "\n";
+		return format;
 	}
 	
 	
