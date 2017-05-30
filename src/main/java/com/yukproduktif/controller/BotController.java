@@ -111,6 +111,13 @@ public class BotController
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
     
+    @RequestMapping(value="/test", method=RequestMethod.GET)
+    public ResponseEntity<String> testAdzan(){    	
+    	PrayerTimes adzan = new AdzanService().getPrayerTimes();
+    	System.out.println("test adzan");
+    	return new ResponseEntity<String>(HttpStatus.OK);
+    }
+    
     
     /**
      * @author Muhammad Imam Fauzan
@@ -145,10 +152,4 @@ public class BotController
     	
     }
     
-    @RequestMapping(value="/testadzan", method=RequestMethod.GET)
-    public ResponseEntity<String> testAdzan(){
-    	AdzanService adzan = new AdzanService();
-    	System.out.println(adzan.getPrayerTimes());
-    	return new ResponseEntity<String>(HttpStatus.OK);
-    }
 }
