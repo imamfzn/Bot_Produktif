@@ -5,29 +5,23 @@ import java.time.LocalTime;
 
 
 public class PrayerTimes {
-	private Time Shubuh;
-	private Time Sunrise;
-	private Time Dzuhur;
-	private Time Ashar;
-	private Time Sunset;
-	private Time Magrib;
-	private Time Isya;
+	private Time shubuh;
+	private Time sunrise;
+	private Time dzuhur;
+	private Time ashar;
+	private Time sunset;
+	private Time magrib;
+	private Time isya;
 	
 	public PrayerTimes(Time shubuh, Time sunrise, Time dzuhur, Time ashar, Time sunset, Time magrib, Time isya) {
-		Shubuh = shubuh;
-		Sunrise = sunrise;
-		Dzuhur = dzuhur;
-		Ashar = ashar;
-		Sunset = sunset;
-		Magrib = magrib;
-		Isya = isya;
+		this.shubuh = shubuh;
+		this.sunrise = sunrise;
+		this.dzuhur = dzuhur;
+		this.ashar = ashar;
+		this.sunset = sunset;
+		this.magrib = magrib;
+		this.isya = isya;
 	}
-	
-	@Override
-	public String toString(){
-		return this.Shubuh.toString() + this.Dzuhur.toString();
-	}
-	
 	
 	
 }
