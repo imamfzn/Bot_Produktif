@@ -81,6 +81,7 @@ public class BotController
             if (payload.events[0].message.type.equals("text")){
                 //msgText = "--DEBUG EDISI RAMADHAN--";
             	msgText = payload.events[0].message.text.toLowerCase();
+            	System.out.println(msgText);
             	if (msgText == "bot adzan"){
             		String res = adzanService.getPrayerTimes().toString();
             		botService.pushMessage(idTarget, res);
