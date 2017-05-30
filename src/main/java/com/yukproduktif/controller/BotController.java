@@ -25,6 +25,7 @@ public class BotController
     String lChannelAccessToken;
     
     LineBotService botService = new LineBotService();
+    AdzanService adzanService = new AdzanService();
 
     @RequestMapping(value="/callback", method=RequestMethod.POST)
     public ResponseEntity<String> callback(
@@ -78,7 +79,7 @@ public class BotController
             }
             
             if (payload.events[0].message.type.equals("text")){
-                msgText = "--DEBUG EDISI RAMADHAN--";
+                //msgText = "--DEBUG EDISI RAMADHAN--";
                 botService.pushMessage(idTarget, msgText);
             }
         }
