@@ -101,9 +101,9 @@ public class BotController
         // String MESSAGE = "Saatnya adzan " + dataReminder.reminder.name;
         // System.out.println(dataReminder.reminder.name);
     	botService.setChannelAccessToken(lChannelAccessToken);
-    	botService.pushMessage(ID_TARGET, MESSAGE);
+    	//botService.pushMessage(ID_TARGET, MESSAGE);
     	
-        System.out.println("DEBUG")
+        System.out.println("DEBUG");
         /* DEBUG */
     	/**
     	 * to-do :
