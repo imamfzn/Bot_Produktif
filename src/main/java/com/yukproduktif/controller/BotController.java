@@ -98,9 +98,10 @@ public class BotController
         Gson gson = new Gson();
         DataReminder dataReminder = gson.fromJson(data, DataReminder.class);
     	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
-        String MESSAGE = "Saatnya adzan " + dataReminder.reminder.name;
+        // String MESSAGE = "Saatnya adzan " + dataReminder.reminder.name;
+        System.out.println(dataReminder.reminder.name);
     	botService.setChannelAccessToken(lChannelAccessToken);
-    	botService.pushMessage(ID_TARGET, MESSAGE);
+    	// botService.pushMessage(ID_TARGET, MESSAGE);
     	/* DEBUG */
     	/**
     	 * to-do :
