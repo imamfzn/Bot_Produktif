@@ -96,14 +96,14 @@ public class BotController
     public ResponseEntity<String> reminder(@RequestBody String data){
     	/* DEBUG */
         Gson gson = new Gson();
-        // DataReminder dataReminder = gson.fromJson(data, DataReminder.class);
+        DataReminder dataReminder = gson.fromJson(data, DataReminder.class);
     	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
-        // String MESSAGE = "Saatnya adzan " + dataReminder.reminder.name;
+        String MESSAGE = "Saatnya adzan " + dataReminder.reminder.name;
         // System.out.println(dataReminder.reminder.name);
     	botService.setChannelAccessToken(lChannelAccessToken);
-    	//botService.pushMessage(ID_TARGET, MESSAGE);
+    	botService.pushMessage(ID_TARGET, MESSAGE);
     	
-        System.out.println("DEBUG");
+        // System.out.println("DEBUG");
         /* DEBUG */
     	/**
     	 * to-do :
