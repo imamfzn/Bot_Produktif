@@ -8,7 +8,7 @@ import java.util.Date;
  *
  */
 public class AdzanService {
-	private static final String SERVICE_ENDPOINT = "";
+	private static final String URL = "";
 	public AdzanService(){};
 	
 	/**
