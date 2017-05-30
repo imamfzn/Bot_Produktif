@@ -95,7 +95,7 @@ public class BotController
     
     /**
      * @author Muhammad Imam Fauzan
-     * @purpose Menerima data yang dikirim dari service reminder, untuk broadcast reminder ke semua line follower bot
+     * Menerima data yang dikirim dari service reminder, untuk broadcast reminder ke semua line follower bot
      * @param data : request body dari reminder service, yang isinya bakal di handle, untuk broadcast ke line follower
      * @return HttpStatus
      */
@@ -120,7 +120,7 @@ public class BotController
     
     /**
      * @author Muhammad Imam Fauzan
-     * @purpose Menghandle request message yang dikirim dari user line ke bot
+     * Menghandle request message yang dikirim dari user line ke bot
      * @param message : request message yang dikirim dari user line
      */
     private void botAction(String message){
