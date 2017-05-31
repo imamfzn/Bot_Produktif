@@ -40,4 +40,61 @@ public class BotReminder {
 	}
 	
 	
+	public boolean isShubuhActive() {
+		return shubuh;
+	}
+
+	public void setShubuh(boolean shubuh) {
+		this.shubuh = shubuh;
+	}
+
+	public boolean isDzuhurActive() {
+		return dzuhur;
+	}
+
+	public void setDzuhur(boolean dzuhur) {
+		this.dzuhur = dzuhur;
+	}
+
+	public boolean isAsharActive() {
+		return ashar;
+	}
+
+	public void setAshar(boolean ashar) {
+		this.ashar = ashar;
+	}
+
+	public boolean isMagribActive() {
+		return magrib;
+	}
+
+	public void setMagribActive(boolean magrib) {
+		this.magrib = magrib;
+	}
+
+	public boolean isIsyaActive() {
+		return isya;
+	}
+
+	public void setIsya(boolean isya) {
+		this.isya = isya;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+	
+	private void setAllReminder(boolean status){
+		shubuh = dzuhur = ashar = magrib = isya = status;
+	}
+
+	public void setAllActive(){
+		setAllReminder(true);
+	}
+	
+	public void setAllNonActive(){
+		setAllReminder(false);
+	}
+	
+	
 }

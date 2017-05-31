@@ -104,9 +104,42 @@ public class BotController
             		botService.sendTemplateMessage(idTarget, reminderWajibView.getViewMessage());
             	}
             	else if (msgText.equals("reminder shubuh on")){
-            		//try to db;
+            		BotReminder userReminder = (BotReminder) reminderRepo.findByUserId(idTarget);
+            		String reminderRespon = "";
+            		//apabila user id sudah terdaftar / sudah pernah mengaktifkan reminder
+            		if (userReminder != null){
+            			if (!userReminder.isShubuhActive()){
+            				userReminder.setShubuh(true);
+            				try {
+            					reminderRepo.save(userReminder);
+            					reminderRespon = "Reminder untuk adzan shubuh berhasil diaktifkan.";
+            				} 
+            				catch (Exception ex){
+            					reminderRespon = "Gagal mengaktifkan reminder, silahkan coba lagi.";
+            				}	
+            			}
+            			else {
+            				reminderRespon = "Reminder untuk adzan shubuh sudah aktif.";
+            			}
+            			
+            		}
             		
-            	}
+            		//user id belum terfdaftar
+            		else {
+            			try {
+            				//register user
+        					reminderRepo.save(new BotReminder(idTarget, true, false, false, false, false));
+        					reminderRespon = "Reminder untuk adzan shubuh berhasil diaktifkan.";
+        				} 
+        				catch (Exception ex){
+        					reminderRespon = "Gagal mengaktifkan reminder, silahkan coba lagi.";
+        				}	
+            		}
+            		
+            		//send respon reminder to user..
+            		botService.pushMessage(idTarget, reminderRespon);
+            		
+            	}//end of reminder setting.
             	
                 
             }
