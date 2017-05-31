@@ -107,7 +107,7 @@ public class BotController
             	}
             	else if (msgText.contains("reminder")){
             		reminderHandler(idTarget, msgText);
-            	}//end of reminder setting.
+            	}
             	
                 
             }
@@ -123,7 +123,7 @@ public class BotController
      * @param adzanName : nama waktu adzan
      * @param newStatus	: status baru yang akan di update pada data reminder
      */
-    public void changeReminderStatus(String userId, String adzanName, boolean newStatus){
+    private void changeReminderStatus(String userId, String adzanName, boolean newStatus){
     	BotReminder userReminder = (BotReminder) reminderRepo.findByUserId(userId);
 		String reminderRespon = "";
 		//apabila user id sudah terdaftar / sudah pernah mengaktifkan reminder
