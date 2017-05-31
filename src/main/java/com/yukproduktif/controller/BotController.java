@@ -105,6 +105,26 @@ public class BotController
             	else if (msgText.equals("test reminder")){
             		botService.sendTemplateMessage(idTarget, reminderWajibView.getViewMessage());
             	}
+            	else if (msgText.equals("reminder wajib")){
+            		//buat view carousel
+            		//atur on off button di carousel untuk setiap column
+            		//get data reminder dari db
+            		try {
+            			BotReminder reminder = reminderRepo.findByUserId(idTarget);
+            			if (reminder != null){
+            				botService.sendTemplateMessage(idTarget, new ReminderWajibView(reminder).getViewMessage());
+            			}
+            			else {
+            				botService.sendTemplateMessage(idTarget, new ReminderWajibView().getViewMessage());
+            			}
+            		}
+            		
+            		catch (Exception ex){
+            			ex.printStackTrace();
+            		}
+            		
+            		
+            	}
             	else if (msgText.contains("reminder")){
             		reminderHandler(idTarget, msgText);
             	}

@@ -27,15 +27,39 @@ public class ReminderWajibView {
 		columns = Arrays.asList(
 			new CarouselColumn(IMAGE_URL_SHUBUH,"Reminder Shubuh","04:30 am", Arrays.asList(new MessageAction("Aktifkan", "reminder shubuh on"))),
 			new CarouselColumn(IMAGE_URL_DZUHUR,"Dzuhur Dzuhur","04:30 am", Arrays.asList(new MessageAction("Aktifkan", "reminder dzuhur on"))),
-			new CarouselColumn(IMAGE_URL_ASHAR,"Reminder Ashar","04:30 am",  Arrays.asList(new MessageAction("Non-Aktifkan", "reminder ashar off"))),
+			new CarouselColumn(IMAGE_URL_ASHAR,"Reminder Ashar","04:30 am",  Arrays.asList(new MessageAction("Aktifkan", "reminder ashar on"))),
 			new CarouselColumn(IMAGE_URL_MAGRIB,"Reminder Magrib","04:30 am", Arrays.asList(new MessageAction("Aktifkan", "reminder magrib on"))),
-			new CarouselColumn(IMAGE_URL_ISYA,"Reminder Isya","04:30 am", Arrays.asList(new MessageAction("Non-Aktifkan", "reminder isya off")))
+			new CarouselColumn(IMAGE_URL_ISYA,"Reminder Isya","04:30 am", Arrays.asList(new MessageAction("Aktifkan", "reminder isya on")))
 		);
 				
 		carousel = new CarouselTemplate(columns);
 		viewMessage = new TemplateMessage(TITLE, carousel);
 				
 	}
+	
+	public ReminderWajibView(BotReminder reminder){
+		//create view carousel message				
+		columns = Arrays.asList(
+			new CarouselColumn(IMAGE_URL_SHUBUH,"Reminder Shubuh","04:30 am", Arrays.asList(new MessageAction(getActiveText(reminder.isShubuhActive()), getRequestText("shubuh", reminder.isShubuhActive())))),
+			new CarouselColumn(IMAGE_URL_DZUHUR,"Dzuhur Dzuhur","04:30 am", Arrays.asList(new MessageAction(getActiveText(reminder.isDzuhurActive()), getRequestText("dzuhur", reminder.isDzuhurActive())))),
+			new CarouselColumn(IMAGE_URL_ASHAR,"Reminder Ashar","04:30 am",  Arrays.asList(new MessageAction(getActiveText(reminder.isAsharActive()), getRequestText("ashar", reminder.isAsharActive())))),
+			new CarouselColumn(IMAGE_URL_MAGRIB,"Reminder Magrib","04:30 am", Arrays.asList(new MessageAction(getActiveText(reminder.isMagribActive()), getRequestText("magrib", reminder.isMagribActive())))),
+			new CarouselColumn(IMAGE_URL_ISYA,"Reminder Isya","04:30 am", Arrays.asList(new MessageAction(getActiveText(reminder.isIsyaActive()), getRequestText("isya", reminder.isIsyaActive()))))
+		);
+				
+		carousel = new CarouselTemplate(columns);
+		viewMessage = new TemplateMessage(TITLE, carousel);
+				
+	}
+	
+	private String getActiveText(boolean active){
+		return active ? "Aktifkan" : "Non-Aktifkan";
+	}
+	
+	private String getRequestText(String adzanName, boolean active){
+		return "reminder " + adzanName + (active ? "on" : "off");
+	}
+	
 	
 	public TemplateMessage getViewMessage(){
 		return viewMessage;
