@@ -217,20 +217,6 @@ public class BotController
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
     
-    @RequestMapping(value="/testdb", method=RequestMethod.GET)
-    public ResponseEntity<String> testdb(){
-    	String USER_ID = "Ccb45584fc566bd5270591a3d010ae4b0";
-    	
-    	try {
-    		reminderRepo.save(new BotReminder(USER_ID, true, true, false, true, false));
-    	}
-    	catch (Exception e){
-    		e.printStackTrace();
-    	}
-    	return new ResponseEntity<String>(HttpStatus.OK);
-    }
-        
-    
     /**
      * @author Muhammad Imam Fauzan
      * Menghandle request message yang dikirim dari user line ke bot
