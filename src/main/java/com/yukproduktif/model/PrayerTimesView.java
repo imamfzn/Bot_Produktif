@@ -7,7 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
+/**
+ * 
+ * @author Muhammad Imam Fauzan
+ * View untuk menampilkan jadwal adzan
+ * View dalam bentuk Carousel 5 Kolom dan Text dengan format yang sudah ditentukan Assalam.
+ */
 public class PrayerTimesView {
 	private final static String IMAGE_URL_SHUBUH = "https://i2.wp.com/dalamruangkeheningan.files.wordpress.com/2017/05/1.jpg?w=463&h=307&crop&ssl=1";
 	private final static String IMAGE_URL_DZUHUR = "https://i0.wp.com/dalamruangkeheningan.files.wordpress.com/2017/05/2.jpg?w=229&h=152&crop&ssl=1";
