@@ -25,6 +25,8 @@ public class PrayerTimesView {
 	
 	public PrayerTimesView(){
 		//create view carousel message
+		actions = Arrays.asList(new URIAction("Yuk Shalat! :)", "\t")); //dumy button
+		
 		columns = Arrays.asList(
 				new CarouselColumn(IMAGE_URL_SHUBUH,"Waktu Shubuh","04:30 am", actions),
 				new CarouselColumn(IMAGE_URL_DZUHUR,"Waktu Dzuhur","04:30 am", actions),
