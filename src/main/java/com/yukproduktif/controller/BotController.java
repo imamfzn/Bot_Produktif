@@ -26,6 +26,8 @@ public class BotController
     
     LineBotService botService = new LineBotService();
     AdzanService adzanService = new AdzanService();
+    
+    MainViewBot mainView = new MainViewBot();
 
     @RequestMapping(value="/callback", method=RequestMethod.POST)
     public ResponseEntity<String> callback(
@@ -86,6 +88,9 @@ public class BotController
             		String res = adzanService.getPrayerTimes().toString();
             		botService.pushMessage(idTarget, res);
             	}
+            	else if (msgText.equals("test wellcome")){
+            		botService.sendTemplateMessage(idTarget, mainView.getViewMessage());
+            	}
                 
             }
         }
@@ -121,14 +126,7 @@ public class BotController
     	 */
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
-    
-    @RequestMapping(value="/test", method=RequestMethod.GET)
-    public ResponseEntity<String> testAdzan(){    	
-    	PrayerTimes adzan = new AdzanService().getPrayerTimes();
-    	System.out.println("test adzan");
-    	return new ResponseEntity<String>(HttpStatus.OK);
-    }
-    
+        
     
     /**
      * @author Muhammad Imam Fauzan
@@ -140,6 +138,7 @@ public class BotController
     		//Kirim jadwal shalat
     		//jadwal shalat yang dikirim dalam bentuk caorousel dan text
     		//format carousel dikirimkan pertama lalu text
+    		
     	}
     	else if (message.equals("reminder wajib")){
     		//Kirim carousel setting reminder wajib
@@ -150,6 +149,9 @@ public class BotController
     		//Kirim carousel setting reminder sunnah
     		//membtuhkan model caorousel dengan 5 column
     		//setiap column menyatakan settingan untuk 1 waktu ibadah sunnah
+    	}
+    	else if (message.equals("test wellcome")){
+    		
     	}
     }
     
