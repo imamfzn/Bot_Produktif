@@ -136,14 +136,20 @@ public class BotController
      * @param message : request message yang dikirim dari user line
      */
     private void botAction(String message){
-    	switch (message) {
-    		case "bot adzan" :
-    			
-    		break;
-    		case "bot reminder" :
-    			
-    		break;
-    		
+    	if (message.equals("jadwal shalat")){
+    		//Kirim jadwal shalat
+    		//jadwal shalat yang dikirim dalam bentuk caorousel dan text
+    		//format carousel dikirimkan pertama lalu text
+    	}
+    	else if (message.equals("reminder wajib")){
+    		//Kirim carousel setting reminder wajib
+    		//membutuhkan model carousel dengan 5 column
+    		//setiap column menyatakan settingan untuk 1 waktu adzan
+    	}
+    	else if (message.equals("reminder sunnah")){
+    		//Kirim carousel setting reminder sunnah
+    		//membtuhkan model caorousel dengan 5 column
+    		//setiap column menyatakan settingan untuk 1 waktu ibadah sunnah
     	}
     }
     
