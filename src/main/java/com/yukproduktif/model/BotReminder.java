@@ -29,6 +29,10 @@ public class BotReminder {
 	private boolean isya;
 	
 	public BotReminder(){}
+	
+	public BotReminder(String userId){
+		this.userId = userId;
+	}
 
 	public BotReminder(String userId, boolean shubuh, boolean dzuhur, boolean ashar, boolean magrib, boolean isya) {
 		this.userId = userId;
@@ -86,6 +90,27 @@ public class BotReminder {
 	
 	private void setAllReminder(boolean status){
 		shubuh = dzuhur = ashar = magrib = isya = status;
+	}
+	
+	public boolean isActive(String adzanName){
+		switch(adzanName){
+			case "shubuh" : return shubuh;
+			case "dzuhur" : return dzuhur;
+			case "ashar" : return ashar; 
+			case "magrib" : return magrib;
+			case "isya" : return isya;
+		}
+		return false;
+	}
+	
+	public void setReminder(String adzanName, boolean status){
+		switch(adzanName){
+			case "shubuh" : shubuh = status; break;
+			case "dzuhur" : dzuhur = status; break;
+			case "ashar" : ashar = status; break;
+			case "magrib" : magrib = status; break;
+			case "isya" : isya = status; break;
+		}
 	}
 
 	public void setAllActive(){

@@ -7,6 +7,8 @@ import com.yukproduktif.repository.*;
 import com.google.gson.Gson;
 import com.linecorp.bot.client.LineSignatureValidator;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -103,7 +105,7 @@ public class BotController
             	else if (msgText.equals("test reminder")){
             		botService.sendTemplateMessage(idTarget, reminderWajibView.getViewMessage());
             	}
-            	else if (msgText.equals("reminder shubuh on")){
+            	else if (msgText.contains("reminder")){
             		BotReminder userReminder = (BotReminder) reminderRepo.findByUserId(idTarget);
             		String reminderRespon = "";
             		//apabila user id sudah terdaftar / sudah pernah mengaktifkan reminder
@@ -146,6 +148,78 @@ public class BotController
         }
          
         return new ResponseEntity<String>(HttpStatus.OK);
+    }
+    
+    /**
+     * @author Muhammad Imam Fauzan
+     * Mengganti status reminder yang sudah ada atupun untuk user yang belum terdaftar pada data reminder.
+     * @param userId 	: user id line follower, yang akan dituju
+     * @param adzanName : nama waktu adzan
+     * @param newStatus	: status baru yang akan di update pada data reminder
+     */
+    public void changeReminderStatus(String userId, String adzanName, boolean newStatus){
+    	BotReminder userReminder = (BotReminder) reminderRepo.findByUserId(userId);
+		String reminderRespon = "";
+		//apabila user id sudah terdaftar / sudah pernah mengaktifkan reminder
+		if (userReminder != null){
+			if (userReminder.isActive(adzanName) != newStatus){
+				userReminder.setReminder(adzanName, newStatus);
+				try {
+					reminderRepo.save(userReminder);
+					reminderRespon = newStatus == true ? 
+							"Reminder untuk adzan " + adzanName + " berhasil diaktifkan." :
+							"Reminder untuk adzan " + adzanName + " berihasil dinon-aktifkan."; 
+				} 
+				catch (Exception ex){
+					reminderRespon = newStatus == true ?
+							"Gagal mengaktifkan reminder, silahkan coba lagi." :
+							"Gagal menonaktifkan reminder, silahkan coba lagi.";
+				}	
+			}
+			else {
+				reminderRespon = newStatus == true ? 
+						"Reminder untuk adzan " + adzanName + " sudah aktif." :
+						"Reminder untuk adzan " + adzanName + " sudah tidak aktif.";
+			}
+		}
+		
+		//user id belum terfdaftar
+		else {
+			try {
+				//register user
+				BotReminder newUserReminder = new BotReminder(userId);
+				newUserReminder.setReminder(adzanName, true);
+				reminderRepo.save(newUserReminder);
+				reminderRespon = "Reminder untuk adzan " + adzanName + " berhasil diaktifkan.";
+			} 
+			catch (Exception ex){
+				reminderRespon = "Gagal mengaktifkan reminder, silahkan coba lagi.";
+			}	
+		}
+		
+		//send respon reminder to user..
+		botService.pushMessage(userId, reminderRespon);
+		
+    }
+    
+    /**
+     * @author Muhammad Imam Fauzan
+     *  method untuk menanangani pengaktifan dan nonaktif reminder
+     */
+    private void reminderHandler(String userId, String reminderRequest){
+    	String[] request = reminderRequest.split(" ");
+    	String listRequest =  "shubuh dzuhur ashar magrib isya dhuha tahajud";
+    	
+    	if (request[0].equals("reminder")){
+    		if (listRequest.contains(request[1])){
+    			//Mengaktifkan reminder
+    			if (request[2].equals("on") || request[2].equals("off")){
+    				boolean newStatus = request[2].equals("on");
+    				String adzanName = request[1];
+    				changeReminderStatus(userId, adzanName, newStatus);
+    			}
+    		}
+    	}
     }
     
     /**
