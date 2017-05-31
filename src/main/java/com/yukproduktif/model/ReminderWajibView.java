@@ -57,7 +57,7 @@ public class ReminderWajibView {
 	}
 	
 	private String getRequestText(String adzanName, boolean active){
-		return "reminder " + adzanName + (active ? " on" : " off");
+		return "reminder " + adzanName +  " " + (active ? "on" : "off");
 	}
 	
 	
