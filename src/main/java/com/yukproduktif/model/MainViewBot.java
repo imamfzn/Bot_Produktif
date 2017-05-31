@@ -39,5 +39,4 @@ public class MainViewBot {
 		return viewMessage;
 	}
 	
-	
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 
@@ -58,6 +59,21 @@ public class LineBotService {
                 .replyMessage(replyMessage)
                 .execute();
             System.out.println("Reply Message: " + response.code() + " " + response.message());
+        } catch (IOException e) {
+            System.out.println("Exception is raised ");
+            e.printStackTrace();
+        }
+    }
+	
+	public void sendTemplateMessage(String sourceId, TemplateMessage message){
+        PushMessage pushMessage = new PushMessage(sourceId,message);
+        try {
+            Response<BotApiResponse> response = LineMessagingServiceBuilder
+            .create(this.channelAccessToken)
+            .build()
+            .pushMessage(pushMessage)
+            .execute();
+            System.out.println(response.code() + " " + response.message());
         } catch (IOException e) {
             System.out.println("Exception is raised ");
             e.printStackTrace();
