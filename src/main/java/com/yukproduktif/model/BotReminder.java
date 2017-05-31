@@ -27,4 +27,17 @@ public class BotReminder {
 	
 	@Column(name = "reminder_isya")
 	private boolean isya;
+	
+	public BotReminder(){}
+
+	public BotReminder(String userId, boolean shubuh, boolean dzuhur, boolean ashar, boolean magrib, boolean isya) {
+		this.userId = userId;
+		this.shubuh = shubuh;
+		this.dzuhur = dzuhur;
+		this.ashar = ashar;
+		this.magrib = magrib;
+		this.isya = isya;
+	}
+	
+	
 }

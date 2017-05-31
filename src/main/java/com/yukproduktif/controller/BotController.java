@@ -2,6 +2,7 @@
 package com.yukproduktif.controller;
 import com.yukproduktif.model.*;
 import com.yukproduktif.service.*;
+import com.yukproduktif.repository.*;
 
 import com.google.gson.Gson;
 import com.linecorp.bot.client.LineSignatureValidator;
@@ -23,6 +24,9 @@ public class BotController
     @Autowired
     @Qualifier("com.linecorp.channel_access_token")
     String lChannelAccessToken;
+    
+    @Autowired
+    ReminderRepository reminderRepo;
     
     LineBotService botService = new LineBotService();
     AdzanService adzanService = new AdzanService();
@@ -99,6 +103,11 @@ public class BotController
             	else if (msgText.equals("test reminder")){
             		botService.sendTemplateMessage(idTarget, reminderWajibView.getViewMessage());
             	}
+            	else if (msgText.equals("reminder shubuh on")){
+            		//try to db;
+            		
+            	}
+            	
                 
             }
         }
@@ -132,6 +141,19 @@ public class BotController
     	 * Query ke database, line follower yang mengaktifkan reminder
     	 * Kirim reminder ke line follower ..
     	 */
+    	return new ResponseEntity<String>(HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/testdb", method=RequestMethod.GET)
+    public ResponseEntity<String> testdb(){
+    	String USER_ID = "Ccb45584fc566bd5270591a3d010ae4b0";
+    	
+    	try {
+    		reminderRepo.save(new BotReminder(USER_ID, true, true, false, true, false));
+    	}
+    	catch (Exception e){
+    		e.printStackTrace();
+    	}
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
         
