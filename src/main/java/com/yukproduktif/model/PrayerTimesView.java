@@ -9,11 +9,11 @@ import java.util.List;
 
 
 public class PrayerTimesView {
-	private final static String IMAGE_URL_SHUBUH = "";
-	private final static String IMAGE_URL_DZUHUR = "";
-	private final static String IMAGE_URL_ASHAR = "";
-	private final static String IMAGE_URL_MAGRIB = "";
-	private final static String IMAGE_URL_ISYA = "";
+	private final static String IMAGE_URL_SHUBUH = "https://i2.wp.com/dalamruangkeheningan.files.wordpress.com/2017/05/1.jpg?w=463&h=307&crop&ssl=1";
+	private final static String IMAGE_URL_DZUHUR = "https://i0.wp.com/dalamruangkeheningan.files.wordpress.com/2017/05/2.jpg?w=229&h=152&crop&ssl=1";
+	private final static String IMAGE_URL_ASHAR = "https://i2.wp.com/dalamruangkeheningan.files.wordpress.com/2017/05/3.jpg?w=229&h=151&crop&ssl=1";
+	private final static String IMAGE_URL_MAGRIB = "https://i2.wp.com/dalamruangkeheningan.files.wordpress.com/2017/05/4.jpg?w=346&h=229&crop&ssl=1";
+	private final static String IMAGE_URL_ISYA = "https://i0.wp.com/dalamruangkeheningan.files.wordpress.com/2017/05/5.jpg?w=346&h=229&crop&ssl=1";
 	private final static String TITLE = "Jadwal Adzan";
 	
 	private String textMessage;
