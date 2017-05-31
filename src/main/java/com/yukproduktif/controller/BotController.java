@@ -189,7 +189,7 @@ public class BotController
     }
     
     /**
-     * @author Muhammad Imam Fauzan
+     * @author Muhammad Imam Fauzan, Rahman Faruq Rajabyansyahr
      * Menerima data yang dikirim dari service reminder, untuk broadcast reminder ke semua line follower bot
      * @param data : request body dari reminder service, yang isinya bakal di handle, untuk broadcast ke line follower
      * @return HttpStatus
