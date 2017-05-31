@@ -106,7 +106,7 @@ public class BotController
             		botService.sendTemplateMessage(idTarget, reminderWajibView.getViewMessage());
             	}
             	else if (msgText.contains("reminder")){
-            		reminderHandler(msgText, idTarget);
+            		reminderHandler(idTarget, msgText);
             	}//end of reminder setting.
             	
                 
