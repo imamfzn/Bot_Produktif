@@ -6,5 +6,5 @@ import com.yukproduktif.model.BotReminder;
 
 @Repository
 public interface ReminderRepository extends CrudRepository<BotReminder,String>{
-	List<BotReminder> findById(String userId);
+	List<BotReminder> findByUserId(String userId);
 }
