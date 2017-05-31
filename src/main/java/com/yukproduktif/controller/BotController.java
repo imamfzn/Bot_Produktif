@@ -28,6 +28,7 @@ public class BotController
     AdzanService adzanService = new AdzanService();
     
     MainViewBot mainView = new MainViewBot();
+    PrayerTimesView adzanView = new PrayerTimesView();
 
     @RequestMapping(value="/callback", method=RequestMethod.POST)
     public ResponseEntity<String> callback(
@@ -90,6 +91,9 @@ public class BotController
             	}
             	else if (msgText.equals("test wellcome")){
             		botService.sendTemplateMessage(idTarget, mainView.getViewMessage());
+            	}
+            	else if (msgText.equals("test adzan")){
+            		botService.sendTemplateMessage(idTarget, adzanView.getViewMessage());
             	}
                 
             }
