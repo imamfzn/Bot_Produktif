@@ -99,7 +99,7 @@ public class BotController
             	else if (msgText.equals("test wellcome")){
             		botService.sendTemplateMessage(idTarget, mainView.getViewMessage());
             	}
-            	else if (msgText.equals("test adzan")){
+            	else if (msgText.equals("jadwal adzan")){
             		botService.sendTemplateMessage(idTarget, adzanView.getViewMessage());
             	}
             	else if (msgText.equals("test reminder")){
@@ -123,6 +123,9 @@ public class BotController
             	else if (msgText.equals("reminder sunnah")){
             		//Just a prototype
             		botService.sendTemplateMessage(idTarget, new ReminderSunnahView().getViewMessage());    		
+            	}
+            	else if (msgText.equals("masjid terdekat")){
+            		botService.pushMessage(idTarget, "Coming Soon");    		
             	}
             	else if (msgText.contains("reminder")){
             		reminderHandler(idTarget, msgText);
