@@ -34,6 +34,7 @@ public class BotController
     AdzanService adzanService = new AdzanService();
     
     MainViewBot mainView = new MainViewBot();
+    MenuViewBot menuView = new MenuViewBot();
     PrayerTimesView adzanView = new PrayerTimesView();
     ReminderWajibView reminderWajibView = new ReminderWajibView();
     ReminderSunnahView reminderSunnahView = new ReminderSunnahView();
@@ -95,6 +96,9 @@ public class BotController
             	if (msgText.equals("bot adzan")){
             		String res = adzanService.getPrayerTimes().toString();
             		botService.pushMessage(idTarget, res);
+            	}
+            	else if (msgText.equals("bot menu")){
+            		botService.sendTemplateMessage(idTarget, menuView.getViewMessage());
             	}
             	else if (msgText.equals("test wellcome")){
             		botService.sendTemplateMessage(idTarget, mainView.getViewMessage());
