@@ -36,6 +36,7 @@ public class BotController
     MainViewBot mainView = new MainViewBot();
     PrayerTimesView adzanView = new PrayerTimesView();
     ReminderWajibView reminderWajibView = new ReminderWajibView();
+    ReminderSunnahView reminderSunnahView = new ReminderSunnahView();
 
     @RequestMapping(value="/callback", method=RequestMethod.POST)
     public ResponseEntity<String> callback(
@@ -89,7 +90,6 @@ public class BotController
             }
             
             if (payload.events[0].message.type.equals("text")){
-                //msgText = "--DEBUG EDISI RAMADHAN--";
             	msgText = payload.events[0].message.text.toLowerCase();
             	System.out.println(msgText);
             	if (msgText.equals("bot adzan")){
@@ -106,9 +106,6 @@ public class BotController
             		botService.sendTemplateMessage(idTarget, reminderWajibView.getViewMessage());
             	}
             	else if (msgText.equals("reminder wajib")){
-            		//buat view carousel
-            		//atur on off button di carousel untuk setiap column
-            		//get data reminder dari db
             		try {
             			ReminderWajib reminder = reminderRepo.findByUserId(idTarget);
             			if (reminder != null){
@@ -121,15 +118,16 @@ public class BotController
             		
             		catch (Exception ex){
             			ex.printStackTrace();
-            		}
-            		
-            		
+            		}            		
+            	}
+            	else if (msgText.equals("reminder sunnah")){
+            		//Just a prototype
+            		botService.sendTemplateMessage(idTarget, new ReminderSunnahView().getViewMessage());    		
             	}
             	else if (msgText.contains("reminder")){
             		reminderHandler(idTarget, msgText);
             	}
-            	
-                
+            	                
             }
         }
          
