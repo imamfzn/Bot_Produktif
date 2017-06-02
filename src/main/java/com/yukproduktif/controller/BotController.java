@@ -32,6 +32,7 @@ public class BotController
     
     LineBotService botService = new LineBotService();
     AdzanService adzanService = new AdzanService();
+    MosqueService mosqueService = new MosqueService();
     
     MainViewBot mainView = new MainViewBot();
     MenuViewBot menuView = new MenuViewBot();
@@ -130,7 +131,8 @@ public class BotController
             		botService.sendTemplateMessage(idTarget, new ReminderSunnahView().getViewMessage());    		
             	}
             	else if (msgText.equals("masjid terdekat")){
-            		botService.pushMessage(idTarget, "Coming Soon");    		
+            		//botService.pushMessage(idTarget, "Coming Soon");
+            		botService.sendTemplateMessage(idTarget, new MasjidView(mosqueService.FindMosques()).getViewMessage());
             	}
             	else if (msgText.contains("reminder")){
             		reminderHandler(idTarget, msgText);
@@ -238,6 +240,14 @@ public class BotController
     	 * Query ke database, line follower yang mengaktifkan reminder
     	 * Kirim reminder ke line follower ..
     	 */
+    	return new ResponseEntity<String>(HttpStatus.OK);
+    }
+    
+    @RequestMapping(value="/test", method=RequestMethod.GET)
+    public ResponseEntity<String> testmasjid(@RequestBody String data){
+    	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
+    	botService.setChannelAccessToken(lChannelAccessToken);
+    	botService.sendTemplateMessage(ID_TARGET, new MasjidView(mosqueService.FindMosques()).getViewMessage());
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
     
