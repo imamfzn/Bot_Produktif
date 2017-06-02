@@ -30,32 +30,7 @@ public class ReminderSunnahView {
 		viewMessage = new TemplateMessage(TITLE, carousel);
 				
 	}
-	
-	/*
-	public ReminderWajibView(ReminderWajib reminder){
-		//create view carousel message				
-		columns = Arrays.asList(
-			new CarouselColumn(IMAGE_URL_SHUBUH,"Reminder Shubuh","04:30 am", Arrays.asList(new MessageAction(getActiveText(reminder.isShubuhActive()), getRequestText("shubuh", reminder.isShubuhActive())))),
-			new CarouselColumn(IMAGE_URL_DZUHUR,"Dzuhur Dzuhur","04:30 am", Arrays.asList(new MessageAction(getActiveText(reminder.isDzuhurActive()), getRequestText("dzuhur", reminder.isDzuhurActive())))),
-			new CarouselColumn(IMAGE_URL_ASHAR,"Reminder Ashar","04:30 am",  Arrays.asList(new MessageAction(getActiveText(reminder.isAsharActive()), getRequestText("ashar", reminder.isAsharActive())))),
-			new CarouselColumn(IMAGE_URL_MAGRIB,"Reminder Magrib","04:30 am", Arrays.asList(new MessageAction(getActiveText(reminder.isMagribActive()), getRequestText("magrib", reminder.isMagribActive())))),
-			new CarouselColumn(IMAGE_URL_ISYA,"Reminder Isya","04:30 am", Arrays.asList(new MessageAction(getActiveText(reminder.isIsyaActive()), getRequestText("isya", reminder.isIsyaActive()))))
-		);
-				
-		carousel = new CarouselTemplate(columns);
-		viewMessage = new TemplateMessage(TITLE, carousel);
-				
-	}*/
-	
-	private String getActiveText(boolean active){
-		return active ? "Non-Aktifkan" : "Aktifkan";
-	}
-	
-	private String getRequestText(String adzanName, boolean active){
-		return "reminder " + adzanName + (active ? " off" : " on");
-	}
-	
-	
+		
 	public TemplateMessage getViewMessage(){
 		return viewMessage;
 	}
