@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "reminder")
-public class BotReminder {
+public class ReminderWajib {
 	
 	@Id
 	@Column(name = "reminder_user_id")
@@ -28,13 +28,13 @@ public class BotReminder {
 	@Column(name = "reminder_isya")
 	private boolean isya;
 	
-	public BotReminder(){}
+	public ReminderWajib(){}
 	
-	public BotReminder(String userId){
+	public ReminderWajib(String userId){
 		this.userId = userId;
 	}
 
-	public BotReminder(String userId, boolean shubuh, boolean dzuhur, boolean ashar, boolean magrib, boolean isya) {
+	public ReminderWajib(String userId, boolean shubuh, boolean dzuhur, boolean ashar, boolean magrib, boolean isya) {
 		this.userId = userId;
 		this.shubuh = shubuh;
 		this.dzuhur = dzuhur;

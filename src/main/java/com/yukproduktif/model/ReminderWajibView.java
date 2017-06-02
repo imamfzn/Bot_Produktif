@@ -37,7 +37,7 @@ public class ReminderWajibView {
 				
 	}
 	
-	public ReminderWajibView(BotReminder reminder){
+	public ReminderWajibView(ReminderWajib reminder){
 		//create view carousel message				
 		columns = Arrays.asList(
 			new CarouselColumn(IMAGE_URL_SHUBUH,"Reminder Shubuh","04:30 am", Arrays.asList(new MessageAction(getActiveText(reminder.isShubuhActive()), getRequestText("shubuh", reminder.isShubuhActive())))),

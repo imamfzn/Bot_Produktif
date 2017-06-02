@@ -110,7 +110,7 @@ public class BotController
             		//atur on off button di carousel untuk setiap column
             		//get data reminder dari db
             		try {
-            			BotReminder reminder = reminderRepo.findByUserId(idTarget);
+            			ReminderWajib reminder = reminderRepo.findByUserId(idTarget);
             			if (reminder != null){
             				botService.sendTemplateMessage(idTarget, new ReminderWajibView(reminder).getViewMessage());
             			}
@@ -144,7 +144,7 @@ public class BotController
      * @param newStatus	: status baru yang akan di update pada data reminder
      */
     private void changeReminderStatus(String userId, String adzanName, boolean newStatus){
-    	BotReminder userReminder = (BotReminder) reminderRepo.findByUserId(userId);
+    	ReminderWajib userReminder = (ReminderWajib) reminderRepo.findByUserId(userId);
 		String reminderRespon = "";
 		//apabila user id sudah terdaftar / sudah pernah mengaktifkan reminder
 		if (userReminder != null){
@@ -173,7 +173,7 @@ public class BotController
 		else {
 			try {
 				//register user
-				BotReminder newUserReminder = new BotReminder(userId);
+				ReminderWajib newUserReminder = new ReminderWajib(userId);
 				newUserReminder.setReminder(adzanName, true);
 				reminderRepo.save(newUserReminder);
 				reminderRespon = "Reminder untuk adzan " + adzanName + " berhasil diaktifkan.";
