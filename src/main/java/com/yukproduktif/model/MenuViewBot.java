@@ -15,7 +15,7 @@ import java.util.List;
 public class MenuViewBot {
 	private final static String IMAGE_URL = "http://www.telegraph.co.uk/content/dam/Travel/galleries/travel/artsandculture/The-worlds-most-beautiful-mosques/blue-mosque-istanb_3379057a-xlarge.jpg";
 	private final static String TITLE = "Menu Bot";
-	private final static String CONTENT = "Perintah bot.";
+	private final static String CONTENT = "Tekan tombol berikut untuk memerintahkan bot.";
 	private final static String WELLCOME_MESSAGE = "Assalamu\'alaikum Wr. Wb.";
 	
 	private List<Action> actions;
@@ -24,7 +24,7 @@ public class MenuViewBot {
 	
 	public MenuViewBot(){
 		actions = Arrays.asList(
-				new MessageAction("Jadwal Adzan (Bandung)", "jadwal adzan"),
+				new MessageAction("Jadwal Adzan", "jadwal adzan"),
 				new MessageAction("Reminder Wajib", "reminder wajib"),
 				new MessageAction("Reminder Sunnah", "reminder sunnah"),
 				new MessageAction("Masjid Terdekat", "masjid terdekat")
