@@ -63,7 +63,8 @@ public class PrayerTimesView {
 		viewMessage = new TemplateMessage(TITLE, carousel);
 		
 		//create text message format..
-		textMessage = "";
+		textMessage = "[ JADWAL SHALAT ]\nBismillah\uD83C\uDF43\n\n\uD83D\uDCC6 Rabu, 17 Mei 2017\n\uD83C\uDF3A 20 Sya'ban 1438H\n\uD83C\uDFE2Bandung dan sekitarnya\n\nShubuh  04:35 am\nDzuhur 11:51 am\nAshar 03:13 pm\nMaghrib 05:46 pm\nIsya 06:59 pm\n\n\"Dan yang menghalang-halangi infak mereka untuk diterima adalah karena mereka kafir (ingkar) kepada Allah dan Rasul-Nya dan mereka tidak melaksanakan sholat, melainkan dengan malas dan tidak (pula) menginfakkan (harta) mereka, melainkan dengan rasa enggan (terpaksa).\"\n\uD83C\uDF42QS. At-Taubah 9: Ayat 54\uD83C\uDF42\n\n#AssalamReminder\n#MadaniBersama\n#SatuDalamIslam";
+	       
 	}
 	
 	public TemplateMessage getViewMessage(){

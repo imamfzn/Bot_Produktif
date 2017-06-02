@@ -105,6 +105,7 @@ public class BotController
             	}
             	else if (msgText.equals("jadwal adzan")){
             		botService.sendTemplateMessage(idTarget, adzanView.getViewMessage());
+            		botService.pushMessage(idTarget, adzanView.getTextMessage());
             	}
             	else if (msgText.equals("test reminder")){
             		botService.sendTemplateMessage(idTarget, reminderWajibView.getViewMessage());
