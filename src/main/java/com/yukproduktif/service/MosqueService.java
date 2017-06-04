@@ -11,7 +11,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 
 public class MosqueService {
-	private final static String URL = "http://botlineif.herokuapp.com/masjid/";
+	private final static String URL = "http://botlineif.herokuapp.com/masjid";
 	public List<Mosque> FindMosque(Location loc){
 		try {
 			String serviceURL = MessageFormat.format("{0}/{1}/{2}", URL, loc.getLatitude().toString(), loc.getLongitude().toString());
