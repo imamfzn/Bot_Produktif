@@ -1,6 +1,7 @@
 
 package com.yukproduktif.controller;
 import com.yukproduktif.model.*;
+import com.yukproduktif.model.body.*;
 import com.yukproduktif.model.view.*;
 import com.yukproduktif.service.*;
 import com.yukproduktif.repository.*;
@@ -40,7 +41,7 @@ public class BotController
     MosqueService mosqueService = new MosqueService();
     
     MainBotView mainView = new MainBotView();
-    MenuViewBot menuView = new MenuViewBot();
+    MenuBotView menuView = new MenuBotView();
     PrayerTimesView adzanView = new PrayerTimesView();
     
     ReminderWajibView reminderWajibView = new ReminderWajibView();
@@ -67,7 +68,7 @@ public class BotController
         
         //Set channel access token to bot service
         //Issue : harusnya kalau bisa gak perlu di set setiap waktu
-        //To-do : buat set channel accest oken on the fly , autowired ?
+        //To-do : buat set channel access token on the fly , autowired ?
         botService.setChannelAccessToken(lChannelAccessToken);
 
         String msgText = " ";
@@ -89,12 +90,12 @@ public class BotController
             if (payload.events[0].message.type.equals("text")){
             	msgText = payload.events[0].message.text.toLowerCase();
             	
-            	//will handle all request text message from line follower.
+            	//handle all request text message from line follower.
             	botAction(msgText, idTarget); 	                
             }
             
             else if (payload.events[0].message.type.equals("location")){
-            	//will handle send nearest 5 mosque.
+            	//will handle send 5 nearest mosque from user location
             	Double lat = Double.parseDouble(payload.events[0].message.latitude);
             	Double lon = Double.parseDouble(payload.events[0].message.longitude);
             	Location loc = new Location(lat, lon);
@@ -207,9 +208,9 @@ public class BotController
     public ResponseEntity<String> reminder(@RequestBody String data){
     	/* DEBUG */
         Gson gson = new Gson();
-        DataReminder dataReminder = gson.fromJson(data, DataReminder.class);
+        ReminderRequest reminderRequest = gson.fromJson(data, ReminderRequest.class);
     	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
-        String MESSAGE = "Saatnya adzan " + dataReminder.reminder.name + " untuk daerah Bandung dan sekitarnya.";
+        String MESSAGE = "Saatnya adzan " + reminderRequest.reminder.name + " untuk daerah Bandung dan sekitarnya.";
 
     	botService.setChannelAccessToken(lChannelAccessToken);
     	botService.pushMessage(ID_TARGET, MESSAGE);
@@ -244,8 +245,8 @@ public class BotController
     	}
     	
     	else if (message.contains("reminder")){
-    		reminderHandler(userId, message);
     		//mengaktifkan / non-aktifkan reminder (wajib, sunnah)
+    		reminderHandler(userId, message);
     	}
     	else if (message.equals("masjid terdekat")){
     		String helper = "Silahkan kirimkan lokasi anda.";
@@ -260,7 +261,8 @@ public class BotController
     //To-Do
     //Kirim informasi adzan yang di request dari user
     //Panggil service adzan
-    //Kirim data adzan yang udah diambil dari service adzan pake LineBotService
+    //Kirim data adzan yang udah diambil dari service adzan pake LineBotService1
+    //Masih Prototype, nunggu struktur return dari service adzan fix.
     private void sendPrayerTimes(String userId){
     	botService.sendTemplateMessage(userId, adzanView.getViewMessage());
 		botService.pushMessage(userId, adzanView.getTextMessage());

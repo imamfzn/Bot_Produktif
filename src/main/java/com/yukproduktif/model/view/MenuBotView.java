@@ -12,7 +12,7 @@ import java.util.List;
  * Model view untuk menampilkan perintah apa saja yang dapat dilakukan oleh bot
  *
  */
-public class MenuViewBot {
+public class MenuBotView {
 	private final static String IMAGE_URL = "https://lh3.ggpht.com/Su-kBS_TEjK9ISAcAPNWMHL0OCNyiP56aeB5czxCqxgg3KrPfqL4qcRLJvwBjWummw=h310";
 	private final static String TITLE = "Menu Bot";
 	private final static String CONTENT = "Tekan tombol berikut untuk memerintahkan bot.";
@@ -22,7 +22,7 @@ public class MenuViewBot {
 	private Template buttonTemplate;
 	private TemplateMessage viewMessage;
 	
-	public MenuViewBot(){
+	public MenuBotView(){
 		actions = Arrays.asList(
 				new MessageAction("Jadwal Adzan", "jadwal adzan"),
 				new MessageAction("Reminder Wajib", "reminder wajib"),

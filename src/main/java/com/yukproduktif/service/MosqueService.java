@@ -1,8 +1,7 @@
 package com.yukproduktif.service;
 import com.yukproduktif.model.Location;
 import com.yukproduktif.model.Mosque;
-import com.yukproduktif.model.MosqueResponse;
-
+import com.yukproduktif.model.body.MosqueResponse;
 import java.text.MessageFormat;
 import java.util.List;
 import com.google.gson.Gson;

@@ -1,4 +1,4 @@
-package com.yukproduktif.model;
+package com.yukproduktif.model.body;
 
 public class Message {
 	 public String type;
