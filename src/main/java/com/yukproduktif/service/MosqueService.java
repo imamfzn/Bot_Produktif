@@ -17,15 +17,10 @@ import com.yukproduktif.model.PrayerTimes;
 
 public class MosqueService {
 	private final static String URL = "http://botlineif.herokuapp.com/masjid/";
-	public MosqueService(){};
-	public List<Masjid> FindMosques(){
+	public String FindMosques(){
 		try {
-			String response = Unirest.get(URL).asJson().getBody().getObject().toString();
-			 Gson gson = new Gson();
-			 List<Masjid> mosques = (List<Masjid>) gson.fromJson(response, Masjid.class);
-			 
-			 return mosques;
-
+			String response = Unirest.get(URL).asJson().getBody().toString();
+			return response;
 		} catch (UnirestException e) {
 			e.printStackTrace();
 		}

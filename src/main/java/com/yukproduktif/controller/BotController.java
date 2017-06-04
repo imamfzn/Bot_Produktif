@@ -132,7 +132,7 @@ public class BotController
             	}
             	else if (msgText.equals("masjid terdekat")){
             		//botService.pushMessage(idTarget, "Coming Soon");
-            		botService.sendTemplateMessage(idTarget, new MasjidView(mosqueService.FindMosques()).getViewMessage());
+            		//botService.sendTemplateMessage(idTarget, new MasjidView(mosqueService.FindMosques()).getViewMessage());
             	}
             	else if (msgText.contains("reminder")){
             		reminderHandler(idTarget, msgText);
@@ -244,10 +244,11 @@ public class BotController
     }
     
     @RequestMapping(value="/test", method=RequestMethod.GET)
-    public ResponseEntity<String> testmasjid(){
-    	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
+    public ResponseEntity<String> testmasjid(@RequestBody String data){
+    	String ID_TARGET = "Ue43858bc93d6a8e1b172d57e1b34c853";
     	botService.setChannelAccessToken(lChannelAccessToken);
-    	botService.sendTemplateMessage(ID_TARGET, new MasjidView(mosqueService.FindMosques()).getViewMessage());
+    	System.out.println(mosqueService.FindMosques());
+    	//botService.sendTemplateMessage(ID_TARGET, new MasjidView(mosqueService.FindMosques()).getViewMessage());
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
     
