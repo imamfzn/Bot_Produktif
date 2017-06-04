@@ -2,13 +2,20 @@ package com.yukproduktif.model.view;
 
 import java.util.Arrays;
 import java.util.List;
-
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.Template;
 
+/**
+ * View Seting Reminder Sunnah
+ * @author Muhammad Imam Fauzan
+ * View untuk menampilkan setting reminder ibadah sunnah (tahajud, dhuha, shaum senin-kamis)
+ * View ditampilkan dalam bentuk carousel (3 kolom)
+ * Setiap view memiliki 1 buah button untuk mengaktifkan / me-nonaktifkan reminder
+ * Field jam dibawah belum diganti, seharusnya yang ditampilkan bukan jam, tapi text / suatu keterangan.
+ */
 public class ReminderSunnahView {
 	
 	private final static String TITLE = "Setting Reminder Sunnah";

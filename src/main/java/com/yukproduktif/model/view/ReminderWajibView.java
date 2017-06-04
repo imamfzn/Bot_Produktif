@@ -1,4 +1,5 @@
 package com.yukproduktif.model.view;
+
 import com.yukproduktif.model.ReminderWajib;
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +9,14 @@ import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.Template;
 
+/**
+ * View Seting Reminder Wajib
+ * @author Muhammad Imam Fauzan
+ * View untuk menampilkan setting reminder ibadah wajib (shalat 5 waktu).
+ * View ditampilkan dalam bentuk carousel (5 kolom)
+ * Setiap view memiliki 1 buah button untuk mengaktifkan / me-nonaktifkan reminder
+ * Field jam dibawah belum diganti, seharusnya yang ditampilkan bukan jam, tapi text / suatu keterangan.
+ */
 
 public class ReminderWajibView {
 	

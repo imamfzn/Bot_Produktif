@@ -199,6 +199,7 @@ public class BotController
     }
     
     /**
+     * Reminder handler dari service reminder, perlu kesepakatan struktur yang dikirim untuk dapat selesai diimplementasi
      * @author Muhammad Imam Fauzan, Rahman Faruq Rajabyansyahr
      * Menerima data yang dikirim dari service reminder, untuk broadcast reminder ke semua line follower bot
      * @param data : request body dari reminder service, yang isinya bakal di handle, untuk broadcast ke line follower
@@ -217,7 +218,6 @@ public class BotController
     	
     	/**
     	 * to-do :
-    	 * Buat model untuk menampung request body dari sevice reminder (pake gson)
     	 * Handle setiap jenis reminder yang masuk dari service reminder
     	 * Query ke database, line follower yang mengaktifkan reminder
     	 * Kirim reminder ke line follower ..
