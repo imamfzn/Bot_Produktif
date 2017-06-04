@@ -16,8 +16,7 @@ public class MosqueView {
 	private List<CarouselColumn> columns;
 	private Template carousel;
 	private TemplateMessage viewMessage;
-	
-	public MosqueView(){}
+
 	public MosqueView(List<Mosque> mosques){
 		
 		for (Mosque m : mosques){

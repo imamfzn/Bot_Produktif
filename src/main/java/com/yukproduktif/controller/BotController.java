@@ -229,7 +229,7 @@ public class BotController
     	System.out.println("test ok");
     	List<Mosque> mosques = mosqueService.FindMosque();
     	    
-    		botService.sendTemplateMessage(ID_TARGET, new ReminderSunnahView().getViewMessage());
+    	botService.sendTemplateMessage(ID_TARGET, new MosqueView(mosques).getViewMessage());
    
     	
     	return new ResponseEntity<String>(HttpStatus.OK);
