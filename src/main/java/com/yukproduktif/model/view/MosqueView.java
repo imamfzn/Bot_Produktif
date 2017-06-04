@@ -20,8 +20,8 @@ public class MosqueView {
 	public MosqueView(List<Mosque> mosques){
 		System.out.println(mosques.size());
 		for (Mosque m : mosques){
-			columns.add(new CarouselColumn(m.photoUrl,m.name,"test address", Arrays.asList(new URIAction("Lihat Lokasi", m.gmapsUrl))));
-			System.out.println("test");
+			//columns.add(new CarouselColumn(m.photoUrl,m.name,"test address", Arrays.asList(new URIAction("Lihat Lokasi", m.gmapsUrl))));
+			System.out.println(m.photoUrl);
 		}
 		
 		carousel = new CarouselTemplate(columns);
