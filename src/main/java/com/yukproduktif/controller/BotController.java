@@ -228,8 +228,10 @@ public class BotController
     	botService.setChannelAccessToken(lChannelAccessToken);
    
     	MosqueView mosqueView = new MosqueView(mosqueService.FindMosque());
-    	if (mosqueView == null) System.out.println("null");
-    	botService.sendTemplateMessage(ID_TARGET, mosqueView.getViewMessage());
+    	if (mosqueView == null){
+    		botService.sendTemplateMessage(ID_TARGET, mosqueView.getViewMessage());
+    	}
+    	
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
     
