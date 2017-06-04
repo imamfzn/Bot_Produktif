@@ -1,4 +1,4 @@
-package com.yukproduktif.model;
+package com.yukproduktif.model.view;
 
 import java.util.Arrays;
 import java.util.List;

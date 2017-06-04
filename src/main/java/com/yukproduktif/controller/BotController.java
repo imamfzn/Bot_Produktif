@@ -1,19 +1,23 @@
 
 package com.yukproduktif.controller;
 import com.yukproduktif.model.*;
+import com.yukproduktif.model.view.*;
 import com.yukproduktif.service.*;
 import com.yukproduktif.repository.*;
-
 import com.google.gson.Gson;
 import com.linecorp.bot.client.LineSignatureValidator;
-
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+/**
+ * 
+ * @author Muhammad Imam Fauzan, Rahman Faruq Rajabyansyahr
+ * Class controller untuk handle semua perintah yang dikirim dari line follower ke bot.
+ * Bot akan selalu "listen" semua aktivitas yang ada di dalam group / multichat / single chat.
+ */
 
 @RestController
 @RequestMapping(value="/linebot")
@@ -34,9 +38,10 @@ public class BotController
     AdzanService adzanService = new AdzanService();
     MosqueService mosqueService = new MosqueService();
     
-    MainViewBot mainView = new MainViewBot();
+    MainBotView mainView = new MainBotView();
     MenuViewBot menuView = new MenuViewBot();
     PrayerTimesView adzanView = new PrayerTimesView();
+    
     ReminderWajibView reminderWajibView = new ReminderWajibView();
     ReminderSunnahView reminderSunnahView = new ReminderSunnahView();
 
@@ -79,69 +84,60 @@ public class BotController
         } 
         
         else if (eventType.equals("message")){
-            if (payload.events[0].source.type.equals("group")){
-                idTarget = payload.events[0].source.groupId;
-            } 
-            
-            else if (payload.events[0].source.type.equals("room")){
-                idTarget = payload.events[0].source.roomId;
-            } 
-            
-            else if (payload.events[0].source.type.equals("user")){
-                idTarget = payload.events[0].source.userId;
-            }
-            
+        	idTarget = getIdTarget(payload);
             if (payload.events[0].message.type.equals("text")){
             	msgText = payload.events[0].message.text.toLowerCase();
-            	System.out.println(msgText);
-            	if (msgText.equals("bot adzan")){
-            		String res = adzanService.getPrayerTimes().toString();
-            		botService.pushMessage(idTarget, res);
-            	}
-            	else if (msgText.equals("bot menu")){
-            		botService.sendTemplateMessage(idTarget, menuView.getViewMessage());
-            	}
-            	else if (msgText.equals("test wellcome")){
-            		botService.sendTemplateMessage(idTarget, mainView.getViewMessage());
-            	}
-            	else if (msgText.equals("jadwal adzan")){
-            		botService.sendTemplateMessage(idTarget, adzanView.getViewMessage());
-            		botService.pushMessage(idTarget, adzanView.getTextMessage());
-            	}
-            	else if (msgText.equals("test reminder")){
-            		botService.sendTemplateMessage(idTarget, reminderWajibView.getViewMessage());
-            	}
-            	else if (msgText.equals("reminder wajib")){
-            		try {
-            			ReminderWajib reminder = reminderRepo.findByUserId(idTarget);
-            			if (reminder != null){
-            				botService.sendTemplateMessage(idTarget, new ReminderWajibView(reminder).getViewMessage());
-            			}
-            			else {
-            				botService.sendTemplateMessage(idTarget, new ReminderWajibView().getViewMessage());
-            			}
-            		}
-            		
-            		catch (Exception ex){
-            			ex.printStackTrace();
-            		}            		
-            	}
-            	else if (msgText.equals("reminder sunnah")){
-            		//Just a prototype
-            		botService.sendTemplateMessage(idTarget, new ReminderSunnahView().getViewMessage());    		
-            	}
-            	else if (msgText.equals("masjid terdekat")){
-            		//botService.pushMessage(idTarget, "Coming Soon");
-            		//botService.sendTemplateMessage(idTarget, new MasjidView(mosqueService.FindMosques()).getViewMessage());
-            	}
-            	else if (msgText.contains("reminder")){
-            		reminderHandler(idTarget, msgText);
-            	}
-            	                
+            	
+            	//will handle all request text message from line follower.
+            	botAction(msgText, idTarget); 	                
+            }
+            
+            else if (payload.events[0].message.type.equals("location")){
+            	//will handle send nearest 5 mosque.
             }
         }
          
         return new ResponseEntity<String>(HttpStatus.OK);
+    }
+    
+    //Mendapatkan id target user dari response payload yang dikirim oleh LINE.
+    private String getIdTarget(Payload payload){
+    	String idTarget = "";
+        if (payload.events[0].source.type.equals("group")){
+            idTarget = payload.events[0].source.groupId;
+        } 
+        
+        else if (payload.events[0].source.type.equals("room")){
+            idTarget = payload.events[0].source.roomId;
+        } 
+        
+        else if (payload.events[0].source.type.equals("user")){
+            idTarget = payload.events[0].source.userId;
+        }
+        
+        return idTarget;
+
+    }
+    
+    /**
+     * @author Muhammad Imam Fauzan
+     *  method untuk menanangani pengaktifan dan nonaktif reminder
+     */
+    private void reminderHandler(String userId, String reminderRequest){
+    	String[] request = reminderRequest.split(" ");
+    	String listRequest =  "shubuh dzuhur ashar magrib isya dhuha tahajud";
+    	
+    	//check request structure.
+    	if (request[0].equals("reminder")){
+    		if (listRequest.contains(request[1])){
+    			//Mengaktifkan / Me-nonaktifkan reminder
+    			if (request[2].equals("on") || request[2].equals("off")){
+    				boolean newStatus = request[2].equals("on");
+    				String adzanName = request[1];
+    				changeReminderStatus(userId, adzanName, newStatus);
+    			}
+    		}
+    	}
     }
     
     /**
@@ -177,7 +173,7 @@ public class BotController
 			}
 		}
 		
-		//user id belum terfdaftar
+		//user id belum terdaftar
 		else {
 			try {
 				//register user
@@ -194,26 +190,6 @@ public class BotController
 		//send respon reminder to user..
 		botService.pushMessage(userId, reminderRespon);
 		
-    }
-    
-    /**
-     * @author Muhammad Imam Fauzan
-     *  method untuk menanangani pengaktifan dan nonaktif reminder
-     */
-    private void reminderHandler(String userId, String reminderRequest){
-    	String[] request = reminderRequest.split(" ");
-    	String listRequest =  "shubuh dzuhur ashar magrib isya dhuha tahajud";
-    	
-    	if (request[0].equals("reminder")){
-    		if (listRequest.contains(request[1])){
-    			//Mengaktifkan reminder
-    			if (request[2].equals("on") || request[2].equals("off")){
-    				boolean newStatus = request[2].equals("on");
-    				String adzanName = request[1];
-    				changeReminderStatus(userId, adzanName, newStatus);
-    			}
-    		}
-    	}
     }
     
     /**
@@ -256,41 +232,63 @@ public class BotController
      * Menghandle request message yang dikirim dari user line ke bot
      * @param message : request message yang dikirim dari user line
      */
-    private void botAction(String message){
+    private void botAction(String message, String userId){
     	if (message.equals("jadwal shalat")){
-    		//Kirim jadwal shalat
-    		//jadwal shalat yang dikirim dalam bentuk caorousel dan text
-    		//format carousel dikirimkan pertama lalu text
-    		
+    		sendPrayerTimes(userId);
     	}
     	else if (message.equals("reminder wajib")){
-    		//Kirim carousel setting reminder wajib
-    		//membutuhkan model carousel dengan 5 column
-    		//setiap column menyatakan settingan untuk 1 waktu adzan
+    		sendReminderWajibView(userId);
     	}
     	else if (message.equals("reminder sunnah")){
-    		//Kirim carousel setting reminder sunnah
-    		//membtuhkan model caorousel dengan 5 column
-    		//setiap column menyatakan settingan untuk 1 waktu ibadah sunnah
+    		sendReminderSunnahView(userId);
     	}
-    	else if (message.equals("test wellcome")){
-    		
+    	
+    	else if (message.contains("reminder")){
+    		reminderHandler(userId, message);
+    		//mengaktifkan / non-aktifkan reminder (wajib, sunnah)
     	}
+    	
+    	else if (message.equals("masjid terdekat")){
+    		//mencarikan masjid terdekat.
+    	}
+    	
     }
     
     //To-Do
     //Kirim informasi adzan yang di request dari user
     //Panggil service adzan
     //Kirim data adzan yang udah diambil dari service adzan pake LineBotService
-    private void sendAdzanInformation(){
-    	
+    private void sendPrayerTimes(String userId){
+    	botService.sendTemplateMessage(userId, adzanView.getViewMessage());
+		botService.pushMessage(userId, adzanView.getTextMessage());
+    }
+    
+    private void sendReminderWajibView(String userId){
+    	try {
+			ReminderWajib reminder = reminderRepo.findByUserId(userId);
+			if (reminder != null){
+				botService.sendTemplateMessage(userId, new ReminderWajibView(reminder).getViewMessage());
+			}
+			else {
+				botService.sendTemplateMessage(userId, new ReminderWajibView().getViewMessage());
+			}
+		}
+		
+		catch (Exception ex){
+			ex.printStackTrace();
+		}          
+    }
+    
+    private void sendReminderSunnahView(String userId){
+    	//Just a prototype
+		botService.sendTemplateMessage(userId, new ReminderSunnahView().getViewMessage());    	
     }
     
     //To-Do
     //Kirim 5 masjid terdekat berdasarkan lokasi user
     //Panggil service masjid
     //kirim data masjid menggunakan carousel 5 kolom, kirim pake LineBotService
-    private void sendNearestMosque(/*location */){
+    private void sendNearestMosque(){
     	
     }
     

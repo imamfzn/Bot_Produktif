@@ -1,4 +1,4 @@
-package com.yukproduktif.model;
+package com.yukproduktif.model.view;
 import com.linecorp.bot.model.message.*;
 import com.linecorp.bot.model.message.template.*;
 import com.linecorp.bot.model.action.*;

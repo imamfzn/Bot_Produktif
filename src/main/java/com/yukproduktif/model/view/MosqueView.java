@@ -1,13 +1,13 @@
-package com.yukproduktif.model;
-
+package com.yukproduktif.model.view;
+import com.yukproduktif.model.Mosque;
 import java.util.Arrays;
 import java.util.List;
-
 import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.Template;
+
 
 public class MosqueView {
 	

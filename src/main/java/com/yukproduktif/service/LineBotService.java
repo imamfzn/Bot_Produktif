@@ -1,9 +1,5 @@
 package com.yukproduktif.service;
 import java.io.IOException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
@@ -16,7 +12,7 @@ import retrofit2.Response;
 /**
  * 
  * @author Muhammad Imam Fauzan
- * @purpose Class service untuk menangani komunikasi pengiriman data ke API LINE Messaging
+ * Class service untuk menangani komunikasi pengiriman data ke API LINE Messaging
  *
  */
 public class LineBotService {

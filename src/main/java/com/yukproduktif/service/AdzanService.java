@@ -1,19 +1,16 @@
 package com.yukproduktif.service;
+import com.yukproduktif.model.PrayerTimes;
+
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.sql.Time;
-import java.time.LocalTime;
-
-import com.google.gson.Gson;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.yukproduktif.model.Payload;
-import com.yukproduktif.model.PrayerTimes;
 
 /**
  * 
@@ -28,11 +25,11 @@ public class AdzanService {
 	
 	/**
 	 * Get jadwal adzan dari service adzan 
-	 * @return
+	 * @return jadwal adzan
 	 */
 	public PrayerTimes getPrayerTimes(){
 		Date now = new Date();
-		String serviceURL = this.URL + now.getDate() + "/" + now.getMonth() + "/" + now.getYear() + "/" + this.LOCATION;
+		String serviceURL = MessageFormat.format("{0}{1}/{2}/{3}/{4}", URL, now.getDate(), now.getMonth(), now.getYear(), LOCATION);
 		
 		try {
 			JSONObject response = Unirest.get(serviceURL).asJson().getBody().getObject();

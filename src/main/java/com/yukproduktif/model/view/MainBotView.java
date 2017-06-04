@@ -1,8 +1,7 @@
-package com.yukproduktif.model;
+package com.yukproduktif.model.view;
 import com.linecorp.bot.model.message.*;
 import com.linecorp.bot.model.message.template.*;
 import com.linecorp.bot.model.action.*;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
  * View yang berisi informasi media sosial Organisasi Assalam Polban.
  *
  */
-public class MainViewBot {
+public class MainBotView {
 	private final static String IMAGE_URL = "https://lh3.ggpht.com/Su-kBS_TEjK9ISAcAPNWMHL0OCNyiP56aeB5czxCqxgg3KrPfqL4qcRLJvwBjWummw=h310";
 	private final static String TITLE = "Assalam Polban";
 	private final static String CONTENT = "Silahkan Add/Follow sosial media kita yang lainnya :)";
@@ -23,7 +22,7 @@ public class MainViewBot {
 	private Template buttonTemplate;
 	private TemplateMessage viewMessage;
 	
-	public MainViewBot(){
+	public MainBotView(){
 		actions = Arrays.asList(
 				new URIAction("Instagram", "https://www.instagram.com/assalampolban/"),
 				new URIAction("Twitter", "https://www.twitter.com/assalampolban/"),

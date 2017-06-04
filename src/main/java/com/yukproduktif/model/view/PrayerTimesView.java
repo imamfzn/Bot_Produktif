@@ -1,8 +1,8 @@
-package com.yukproduktif.model;
+package com.yukproduktif.model.view;
+import com.yukproduktif.model.PrayerTimes;
 import com.linecorp.bot.model.message.*;
 import com.linecorp.bot.model.message.template.*;
 import com.linecorp.bot.model.action.*;
-
 import java.util.Arrays;
 import java.util.List;
 
