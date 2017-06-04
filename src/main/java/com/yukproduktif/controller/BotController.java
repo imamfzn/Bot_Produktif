@@ -227,7 +227,11 @@ public class BotController
     	String ID_TARGET = "Ue43858bc93d6a8e1b172d57e1b34c853";
     	botService.setChannelAccessToken(lChannelAccessToken);
     	System.out.println("test ok");
-    	//MosqueView mosqueView = new MosqueView(mosqueService.FindMosque());
+    	List<Mosque> mosques = mosqueService.FindMosque();
+    	for (Mosque m : mosques){
+    		String format = String.format("{0} {1} {2}", m.address, m.distance, m.name);
+    		System.out.println(format);
+    	}
     	/**
     	if (mosqueView != null){
     		botService.sendTemplateMessage(ID_TARGET, mosqueView.getViewMessage());
