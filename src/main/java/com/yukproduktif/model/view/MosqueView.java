@@ -16,16 +16,15 @@ public class MosqueView {
 	
 	private final static String TITLE = "Masjid Terdekat";
 	private final static String IMG = "https://igx.4sqi.net/img/general/640x480/2210732_zMw-UepPzeQSrpEy2KZgSFaWNA6Vg4l1ztAB99Bc6lY.jpg";
-	private List<CarouselColumn> columns = new ArrayList<CarouselColumn>();
+	private List<CarouselColumn> columns;
 	private Template carousel;
 	private TemplateMessage viewMessage;
 
 	public MosqueView(List<Mosque> mosques){
-		//System.out.println(mosques.size());
-		//List<Action> actions = Arrays.asList(new URIAction("Lihat Lokasi", "https://www.google.com/maps?saddr=-6.870484,107.572103&daddr=-6.86845234,107.5709394"));
+		columns = new ArrayList<CarouselColumn>();
 		for (Mosque m : mosques){
 			List<Action> actions = Arrays.asList(new URIAction("Lihat Lokasi", m.gmapsUrl)); //cannot direct cast to List<Action>
-			columns.add(new CarouselColumn(IMG,m.name,m.address, actions));
+			columns.add(new CarouselColumn(IMG,m.name,m.address == null? "-" : m.address, actions));
 		}
 
 		carousel = new CarouselTemplate(columns);
