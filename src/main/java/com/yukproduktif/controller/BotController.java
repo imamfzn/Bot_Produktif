@@ -7,8 +7,6 @@ import com.yukproduktif.repository.*;
 import com.google.gson.Gson;
 import com.linecorp.bot.client.LineSignatureValidator;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -97,7 +95,10 @@ public class BotController
             
             else if (payload.events[0].message.type.equals("location")){
             	//will handle send nearest 5 mosque.
-            	botService.pushMessage(idTarget, payload.events[0].message.latitude);
+            	Double lat = Double.parseDouble(payload.events[0].message.latitude);
+            	Double lon = Double.parseDouble(payload.events[0].message.longitude);
+            	Location loc = new Location(lat, lon);
+            	sendNearestMosque(loc, idTarget);
             }
         }
          
@@ -225,12 +226,12 @@ public class BotController
     
     @RequestMapping(value="/test", method=RequestMethod.GET)
     public ResponseEntity<String> testmasjid(){
-    	String ID_TARGET = "Ue43858bc93d6a8e1b172d57e1b34c853";
-    	botService.setChannelAccessToken(lChannelAccessToken);
+    	//String ID_TARGET = "Ue43858bc93d6a8e1b172d57e1b34c853";
+    	//botService.setChannelAccessToken(lChannelAccessToken);
     	System.out.println("test ok");
-    	List<Mosque> mosques = mosqueService.FindMosque();
+    	//List<Mosque> mosques = mosqueService.FindMosque();
     	    
-    	botService.sendTemplateMessage(ID_TARGET, new MosqueView(mosques).getViewMessage());
+    	//botService.sendTemplateMessage(ID_TARGET, new MosqueView(mosques).getViewMessage());
    
     	
     	return new ResponseEntity<String>(HttpStatus.OK);
@@ -297,8 +298,8 @@ public class BotController
     //Kirim 5 masjid terdekat berdasarkan lokasi user
     //Panggil service masjid
     //kirim data masjid menggunakan carousel 5 kolom, kirim pake LineBotService
-    private void sendNearestMosque(){
-    	
+    private void sendNearestMosque(Location loc,  String userId){
+    	botService.sendTemplateMessage(userId, new MosqueView(new MosqueService().FindMosque(loc)).getViewMessage());
     }
     
 }
