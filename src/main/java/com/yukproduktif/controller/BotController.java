@@ -226,8 +226,8 @@ public class BotController
     public ResponseEntity<String> testmasjid(){
     	String ID_TARGET = "Ue43858bc93d6a8e1b172d57e1b34c853";
     	botService.setChannelAccessToken(lChannelAccessToken);
-   
-    	MosqueView mosqueView = new MosqueView(mosqueService.FindMosque());
+    	System.out.println("test ok");
+    	//MosqueView mosqueView = new MosqueView(mosqueService.FindMosque());
     	/**
     	if (mosqueView != null){
     		botService.sendTemplateMessage(ID_TARGET, mosqueView.getViewMessage());
