@@ -9,7 +9,7 @@ import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.Template;
 
-public class MasjidView {
+public class MosqueView {
 	
 	private final static String TITLE = "Masjid Terdekat";
 	
@@ -17,9 +17,9 @@ public class MasjidView {
 	private Template carousel;
 	private TemplateMessage viewMessage;
 	
-	public MasjidView(List<Masjid> mosques){
+	public MosqueView(List<Mosque> mosques){
 		
-		for (Masjid m : mosques){
+		for (Mosque m : mosques){
 			columns.add(new CarouselColumn(m.photoUrl,m.name,m.address, Arrays.asList(new URIAction("Lihat Lokasi", m.gmapsUrl))));
 		}
 		

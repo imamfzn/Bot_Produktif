@@ -13,9 +13,8 @@ import com.google.gson.Gson;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.yukproduktif.model.DataReminder;
-import com.yukproduktif.model.Masjid;
-import com.yukproduktif.model.Payload;
-import com.yukproduktif.model.PrayerTimes;
+import com.yukproduktif.model.Mosque;
+import com.yukproduktif.model.MosqueResponse;
 
 public class MosqueService {
 	private final static String URL = "http://botlineif.herokuapp.com/masjid/";
@@ -23,8 +22,8 @@ public class MosqueService {
 		try {
 			String response = Unirest.get(URL).asJson().getBody().toString();
 			 Gson gson = new Gson();
-		     List<Masjid> mosques = (List<Masjid>) gson.fromJson(response, Masjid.class); //return response;
-		     System.out.println(mosques.toString() + " " + mosques.size());
+		     MosqueResponse mosqueRes =  gson.fromJson(response, MosqueResponse.class); //return response;
+		     System.out.println(mosqueRes.mosques.size() + mosqueRes.mosques.toString());
 		     return response;
 		} catch (UnirestException e) {
 			e.printStackTrace();
