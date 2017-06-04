@@ -259,7 +259,8 @@ public class BotController
     	}
     	
     	else if (message.equals("masjid terdekat")){
-    		//mencarikan masjid terdekat.
+    		String helper = "Silahkan kirimkan lokasi anda.";
+    		botService.pushMessage(userId, helper);
     	}
     	
     }
