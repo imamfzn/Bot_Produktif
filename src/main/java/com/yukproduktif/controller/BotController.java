@@ -97,6 +97,7 @@ public class BotController
             
             else if (payload.events[0].message.type.equals("location")){
             	//will handle send nearest 5 mosque.
+            	botService.pushMessage(idTarget, payload.events[0].message.latitude);
             }
         }
          
