@@ -24,7 +24,7 @@ public class MainBotView {
 	
 	public MainBotView(){
 		actions = Arrays.asList(
-				new URIAction("Instagram", "https://www.instagram.com/assalampolban/"),
+				new URIAction("Instagram", "https://www.instagram.com/p/assalampolban/"),
 				new URIAction("Twitter", "https://www.twitter.com/p/assalampolban/"),
 				new URIAction("Facebook", "https://www.facebook.com/assalampolban/"),
 				new URIAction("LINE", "https://line.me/R/ti/p/%40LTA5871H")
