@@ -229,7 +229,8 @@ public class BotController
     	System.out.println("test ok");
     	List<Mosque> mosques = mosqueService.FindMosque();
     	
-    	MosqueView mosqueView = new MosqueView(mosques);
+    	MosqueView mosqueView;
+    	mosqueView = new MosqueView(mosques);
     
     	if (mosqueView != null){
     		botService.sendTemplateMessage(ID_TARGET, mosqueView.getViewMessage());
