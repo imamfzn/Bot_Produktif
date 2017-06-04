@@ -244,7 +244,7 @@ public class BotController
     }
     
     @RequestMapping(value="/test", method=RequestMethod.GET)
-    public ResponseEntity<String> testmasjid(@RequestBody String data){
+    public ResponseEntity<String> testmasjid(){
     	String ID_TARGET = "Ue43858bc93d6a8e1b172d57e1b34c853";
     	botService.setChannelAccessToken(lChannelAccessToken);
     	System.out.println(mosqueService.FindMosques());
