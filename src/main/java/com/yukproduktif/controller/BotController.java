@@ -243,7 +243,10 @@ public class BotController
      * @param message : request message yang dikirim dari user line
      */
     private void botAction(String message, String userId){
-    	if (message.equals("jadwal shalat")){
+    	if (message.equals("bot menu")){
+    		botService.sendTemplateMessage(userId, menuView.getViewMessage());
+    	}
+    	else if (message.equals("jadwal shalat")){
     		sendPrayerTimes(userId);
     	}
     	else if (message.equals("reminder wajib")){
@@ -257,10 +260,12 @@ public class BotController
     		reminderHandler(userId, message);
     		//mengaktifkan / non-aktifkan reminder (wajib, sunnah)
     	}
-    	
     	else if (message.equals("masjid terdekat")){
     		String helper = "Silahkan kirimkan lokasi anda.";
     		botService.pushMessage(userId, helper);
+    	}
+    	else if (message.equals("wellcome")){
+    		botService.sendTemplateMessage(userId, mainView.getViewMessage());
     	}
     	
     }
