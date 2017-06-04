@@ -6,6 +6,9 @@ import com.yukproduktif.service.*;
 import com.yukproduktif.repository.*;
 import com.google.gson.Gson;
 import com.linecorp.bot.client.LineSignatureValidator;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -223,7 +226,9 @@ public class BotController
     public ResponseEntity<String> testmasjid(){
     	String ID_TARGET = "Ue43858bc93d6a8e1b172d57e1b34c853";
     	botService.setChannelAccessToken(lChannelAccessToken);
-    	botService.sendTemplateMessage(ID_TARGET, new MosqueView(mosqueService.FindMosque()).getViewMessage());
+    	List<Mosque> mosques = mosqueService.FindMosque();
+    	System.out.println(mosques.size());
+    	botService.sendTemplateMessage(ID_TARGET, new MosqueView(mosques).getViewMessage());
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
     
