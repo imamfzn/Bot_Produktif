@@ -1,6 +1,7 @@
 package com.yukproduktif.service;
 
 import java.sql.Time;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -13,6 +14,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.yukproduktif.model.DataReminder;
 import com.yukproduktif.model.Masjid;
+import com.yukproduktif.model.Payload;
 import com.yukproduktif.model.PrayerTimes;
 
 public class MosqueService {
@@ -20,7 +22,10 @@ public class MosqueService {
 	public String FindMosques(){
 		try {
 			String response = Unirest.get(URL).asJson().getBody().toString();
-			return response;
+			 Gson gson = new Gson();
+		     List<Masjid> mosques = (List<Masjid>) gson.fromJson(response, Masjid.class); //return response;
+		     System.out.println(mosques.toString() + " " + mosques.size());
+		     return response;
 		} catch (UnirestException e) {
 			e.printStackTrace();
 		}
