@@ -153,7 +153,7 @@ public class BotController
      * @author Muhammad Imam Fauzan
      * Mengganti status reminder yang sudah ada atupun untuk user yang belum terdaftar pada data reminder.
      * @param userId 	: user id line follower, yang akan dituju
-     * @param adzanName : nama waktu adzan
+     * @param prayerName : nama waktu adzan / ibadah sunnah
      * @param newStatus	: status baru yang akan di update pada data reminder
      */
     private void changeReminderStatus(String userId, String prayerName, boolean newStatus){
@@ -195,29 +195,37 @@ public class BotController
 		
 		//user id belum terdaftar
 		else {
-			try {
-				//register user
-				IReminder newUserReminder;
-				
-				if (isWajib){
-					newUserReminder = new ReminderWajib(userId);
-				}
-				else {
-					newUserReminder = new ReminderSunnah(userId);
-				}
-				
-				newUserReminder.setReminder(prayerName, true);
-				repo.save(newUserReminder);
-				reminderRespon = "Reminder untuk adzan " + prayerName + " berhasil diaktifkan.";
-			} 
-			catch (Exception ex){
-				reminderRespon = "Gagal mengaktifkan reminder, silahkan coba lagi.";
-			}	
+			//mencegah keyword : reminder <prayer_name> off
+			//dicegah ketika user belum terdaftar pada reminder, tapi menggunkan keyword off.
+			if (newStatus == false){
+				reminderRespon = "anda belum mengaktifkan reminder, silahkan aktifkan terlebih dahulu.";
+			}
+			//mengaktifkan reminder untuk pertama kali
+			//mendaftarkan user ke data reminder
+			//keyword : reminder <prayer_name> on
+			else {
+				try {
+					IReminder newUserReminder;
+					if (isWajib){
+						newUserReminder = new ReminderWajib(userId);
+					}
+					else {
+						newUserReminder = new ReminderSunnah(userId);
+					}
+					
+					newUserReminder.setReminder(prayerName, true);
+					repo.save(newUserReminder);
+					
+					reminderRespon = "Reminder untuk adzan " + prayerName + " berhasil diaktifkan.";
+				} 
+				catch (Exception ex){
+					reminderRespon = "Gagal mengaktifkan reminder, silahkan coba lagi.";
+				}	
+			}
 		}
 		
 		//send respon reminder to user..
 		botService.pushMessage(userId, reminderRespon);
-		
     }
     
     /**
