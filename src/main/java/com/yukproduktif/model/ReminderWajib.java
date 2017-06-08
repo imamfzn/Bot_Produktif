@@ -6,9 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "reminder")
-public class Reminder {
-	
+@Table(name = "reminder_wajib")
+public class ReminderWajib implements IReminder {
 	@Id
 	@Column(name = "reminder_user_id")
 	private String userId;
@@ -34,13 +33,13 @@ public class Reminder {
 	@Column(name = "reminder_tahajud")
 	private boolean tahajud;
 	
-	public Reminder(){}
+	public ReminderWajib(){}
 	
-	public Reminder(String userId){
+	public ReminderWajib(String userId){
 		this.userId = userId;
 	}
 
-	public Reminder(String userId, boolean shubuh, boolean dzuhur, boolean ashar, boolean magrib, boolean isya) {
+	public ReminderWajib(String userId, boolean shubuh, boolean dzuhur, boolean ashar, boolean magrib, boolean isya) {
 		this.userId = userId;
 		this.shubuh = shubuh;
 		this.dzuhur = dzuhur;
@@ -105,8 +104,6 @@ public class Reminder {
 			case "ashar" : return ashar; 
 			case "magrib" : return magrib;
 			case "isya" : return isya;
-			case "dhuha" : return dhuha;
-			case "tahajud" : return tahajud;
 		}
 		return false;
 	}
@@ -118,8 +115,6 @@ public class Reminder {
 			case "ashar" : ashar = status; break;
 			case "magrib" : magrib = status; break;
 			case "isya" : isya = status; break;
-			case "dhuha" : dhuha = status; break;
-			case "tahajud" : tahajud = status; break;
 		}
 	}
 

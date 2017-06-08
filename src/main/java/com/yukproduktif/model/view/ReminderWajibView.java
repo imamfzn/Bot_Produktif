@@ -1,6 +1,6 @@
 package com.yukproduktif.model.view;
 
-import com.yukproduktif.model.Reminder;
+import com.yukproduktif.model.ReminderWajib;
 import java.util.Arrays;
 import java.util.List;
 import com.linecorp.bot.model.action.MessageAction;
@@ -46,7 +46,7 @@ public class ReminderWajibView {
 				
 	}
 	
-	public ReminderWajibView(Reminder reminder){
+	public ReminderWajibView(ReminderWajib reminder){
 		//create view carousel message				
 		columns = Arrays.asList(
 			new CarouselColumn(IMAGE_URL_SHUBUH,"Reminder Shubuh","04:30 am", Arrays.asList(new MessageAction(getActiveText(reminder.isShubuhActive()), getRequestText("shubuh", reminder.isShubuhActive())))),

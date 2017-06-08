@@ -34,7 +34,10 @@ public class BotController
     String lChannelAccessToken;
     
     @Autowired
-    ReminderRepository reminderRepo;
+    ReminderRepositoryWajib reminderWajibRepo;
+    
+    @Autowired
+    ReminderRepositorySunnah reminderSunnahRepo;
     
     LineBotService botService = new LineBotService();
     AdzanService adzanService = new AdzanService();
@@ -154,15 +157,24 @@ public class BotController
      * @param newStatus	: status baru yang akan di update pada data reminder
      */
     private void changeReminderStatus(String userId, String prayerName, boolean newStatus){
-    	Reminder userReminder = reminderRepo.findByUserId(userId);  	
-		String reminderRespon = "";
-		
+    	final String LIST_WAJIB =  "shubuh dzuhur ashar magrib isya";
+    	IReminderRepository repo = null;
+    	
+    	if (LIST_WAJIB.contains(prayerName)){
+    		repo = reminderWajibRepo;
+    	}
+    	else {
+    		repo = reminderSunnahRepo;
+    	}
+    	
+    	IReminder userReminder = repo.findByUserId(userId);  
+		String reminderRespon = "";		
 		//apabila user id sudah terdaftar / sudah pernah mengaktifkan reminder
 		if (userReminder != null){
 			if (userReminder.isActive(prayerName) != newStatus){
 				userReminder.setReminder(prayerName, newStatus);
 				try {
-					reminderRepo.save(userReminder);
+					repo.save(userReminder);
 					reminderRespon = newStatus == true ? 
 							"Reminder untuk adzan " + prayerName + " berhasil diaktifkan." :
 							"Reminder untuk adzan " + prayerName + " berihasil dinon-aktifkan."; 
@@ -184,9 +196,9 @@ public class BotController
 		else {
 			try {
 				//register user
-				Reminder newUserReminder = new Reminder(userId);
+				ReminderWajib newUserReminder = new ReminderWajib(userId);
 				newUserReminder.setReminder(prayerName, true);
-				reminderRepo.save(newUserReminder);
+				repo.save(newUserReminder);
 				reminderRespon = "Reminder untuk adzan " + prayerName + " berhasil diaktifkan.";
 			} 
 			catch (Exception ex){
@@ -271,7 +283,7 @@ public class BotController
     
     private void sendReminderWajibView(String userId){
     	try {
-			Reminder reminder = reminderRepo.findByUserId(userId);
+			ReminderWajib reminder = reminderWajibRepo.findByUserId(userId);
 			if (reminder != null){
 				botService.sendTemplateMessage(userId, new ReminderWajibView(reminder).getViewMessage());
 			}
