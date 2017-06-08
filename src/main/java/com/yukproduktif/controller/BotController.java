@@ -88,6 +88,8 @@ public class BotController
             }
         } 
         
+        //"The main of bot controller"
+        //Will handle all of user text request
         else if (eventType.equals("message")){
         	idTarget = getIdTarget(payload);
             if (payload.events[0].message.type.equals("text")){
