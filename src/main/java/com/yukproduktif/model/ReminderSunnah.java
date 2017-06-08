@@ -16,14 +16,41 @@ import javax.persistence.Table;
 @Table(name = "reminder_sunnah")
 public class ReminderSunnah {
 	@Id
-	@Column(name = "user_id")
+	@Column(name = "reminder_user_id")
 	private String userId;
 	
-	@Column(name = "status")
-	private boolean status;
+	@Column(name = "reminder_dhuha")
+	private boolean dhuha;
 	
-	@Column(name = "id_sunnah")
-	private int id_sunnah;
+	@Column(name = "reminder_tahajud")
+	private boolean tahajud;
 	
+	public ReminderSunnah(){}
 	
+	private void setAllReminder(boolean status) {
+		dhuha = tahajud = status;
+	}
+	
+	public void setAllActive(){
+		setAllReminder(true);
+	}
+
+	public void setAllNonActive(){
+		setAllReminder(false);
+	}
+	
+	public boolean isActive(String name){
+		switch(name){
+			case "dhuha" : return dhuha;
+			case "tahajud" : return tahajud;
+		}
+		return false;
+	}
+	
+	public void setReminder(String name, boolean status){
+		switch(name){
+			case "dhuha" : dhuha = status; break;
+			case "tahajud" : tahajud = status; break;
+		}
+	}
 }
