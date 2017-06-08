@@ -203,6 +203,7 @@ public class BotController
 			if (newStatus == false){
 				reminderRespon = "anda belum mengaktifkan reminder, silahkan aktifkan terlebih dahulu.";
 			}
+			
 			//mengaktifkan reminder untuk pertama kali
 			//mendaftarkan user ke data reminder
 			//keyword : reminder <prayer_name> on
@@ -219,7 +220,7 @@ public class BotController
 					newUserReminder.setReminder(prayerName, true);
 					repo.save(newUserReminder);
 					
-					reminderRespon = "Reminder untuk adzan " + prayerName + " berhasil diaktifkan.";
+					reminderRespon = "Reminder untuk " + reminderType + prayerName + " berhasil diaktifkan.";
 				} 
 				catch (Exception ex){
 					reminderRespon = "Gagal mengaktifkan reminder, silahkan coba lagi.";
