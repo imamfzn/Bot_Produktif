@@ -159,8 +159,8 @@ public class BotController
     private void changeReminderStatus(String userId, String prayerName, boolean newStatus){
     	final String LIST_WAJIB =  "shubuh dzuhur ashar magrib isya";
     	IReminderRepository repo = null;
-    	
-    	if (LIST_WAJIB.contains(prayerName)){
+    	boolean isWajib = LIST_WAJIB.contains(prayerName);
+    	if (isWajib){
     		repo = reminderWajibRepo;
     	}
     	else {
@@ -197,7 +197,15 @@ public class BotController
 		else {
 			try {
 				//register user
-				ReminderWajib newUserReminder = new ReminderWajib(userId);
+				IReminder newUserReminder;
+				
+				if (isWajib){
+					newUserReminder = new ReminderWajib(userId);
+				}
+				else {
+					newUserReminder = new ReminderSunnah(userId);
+				}
+				
 				newUserReminder.setReminder(prayerName, true);
 				repo.save(newUserReminder);
 				reminderRespon = "Reminder untuk adzan " + prayerName + " berhasil diaktifkan.";

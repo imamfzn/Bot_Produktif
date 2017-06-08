@@ -21,6 +21,10 @@ public class ReminderSunnah implements IReminder {
 	
 	public ReminderSunnah(){}
 	
+	public ReminderSunnah(String userId) {
+		this.userId = userId;
+	}
+	
 	public ReminderSunnah(String userId, boolean dhuha, boolean tahajud) {
 		this.userId = userId;
 		this.dhuha = dhuha;
