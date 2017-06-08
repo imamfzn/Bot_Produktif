@@ -29,8 +29,8 @@ public class ReminderSunnahView {
 	public ReminderSunnahView(){
 		//create view carousel message				
 		columns = Arrays.asList(
-			new CarouselColumn(IMAGE_URL_DHUHA,"Reminder Dhuha","08:30", Arrays.asList(new MessageAction("Aktifkan", "reminder sunnah dhuha on"))),
-			new CarouselColumn(IMAGE_URL_TAHAJUD,"Reminder Tahajud","02:30", Arrays.asList(new MessageAction("Aktifkan", "reminder sunnah tahajud on")))
+			new CarouselColumn(IMAGE_URL_DHUHA,"Reminder Dhuha","08:30", Arrays.asList(new MessageAction("Aktifkan", "reminder dhuha on"))),
+			new CarouselColumn(IMAGE_URL_TAHAJUD,"Reminder Tahajud","02:30", Arrays.asList(new MessageAction("Aktifkan", "reminder tahajud on")))
 		);
 				
 		carousel = new CarouselTemplate(columns);

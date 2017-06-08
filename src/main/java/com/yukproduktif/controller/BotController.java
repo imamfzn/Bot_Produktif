@@ -2,7 +2,6 @@
 package com.yukproduktif.controller;
 import com.yukproduktif.model.*;
 import com.yukproduktif.model.body.*;
-import com.yukproduktif.model.body.ReminderBody;
 import com.yukproduktif.model.view.*;
 import com.yukproduktif.service.*;
 import com.yukproduktif.repository.*;
@@ -36,7 +35,6 @@ public class BotController
     
     @Autowired
     ReminderRepository reminderRepo;
-    
     
     LineBotService botService = new LineBotService();
     AdzanService adzanService = new AdzanService();
