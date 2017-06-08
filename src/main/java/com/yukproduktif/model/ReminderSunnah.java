@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "reminder_sunnah")
+@Table(name = "reminder_sunnah1")
 public class ReminderSunnah implements IReminder {
 	
 	@Id
