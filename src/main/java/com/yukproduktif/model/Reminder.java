@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "reminder")
-public class ReminderWajib implements IReminder{
+public class Reminder {
 	
 	@Id
 	@Column(name = "reminder_user_id")
@@ -28,13 +28,19 @@ public class ReminderWajib implements IReminder{
 	@Column(name = "reminder_isya")
 	private boolean isya;
 	
-	public ReminderWajib(){}
+	@Column(name = "reminder_dhuha")
+	private boolean dhuha;
 	
-	public ReminderWajib(String userId){
+	@Column(name = "reminder_tahajud")
+	private boolean tahajud;
+	
+	public Reminder(){}
+	
+	public Reminder(String userId){
 		this.userId = userId;
 	}
 
-	public ReminderWajib(String userId, boolean shubuh, boolean dzuhur, boolean ashar, boolean magrib, boolean isya) {
+	public Reminder(String userId, boolean shubuh, boolean dzuhur, boolean ashar, boolean magrib, boolean isya) {
 		this.userId = userId;
 		this.shubuh = shubuh;
 		this.dzuhur = dzuhur;
@@ -99,6 +105,8 @@ public class ReminderWajib implements IReminder{
 			case "ashar" : return ashar; 
 			case "magrib" : return magrib;
 			case "isya" : return isya;
+			case "dhuha" : return dhuha;
+			case "tahajud" : return tahajud;
 		}
 		return false;
 	}
@@ -110,6 +118,8 @@ public class ReminderWajib implements IReminder{
 			case "ashar" : ashar = status; break;
 			case "magrib" : magrib = status; break;
 			case "isya" : isya = status; break;
+			case "dhuha" : dhuha = status; break;
+			case "tahajud" : tahajud = status; break;
 		}
 	}
 

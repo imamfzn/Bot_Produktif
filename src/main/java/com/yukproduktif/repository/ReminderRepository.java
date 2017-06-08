@@ -1,7 +1,9 @@
 package com.yukproduktif.repository;
-import com.yukproduktif.model.IReminder;
+import com.yukproduktif.model.Reminder;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ReminderRepository<T extends IReminder> extends CrudRepository<T, String> {
-	T findByUserId(String userId);
+@Repository
+public interface ReminderRepository extends CrudRepository<Reminder, String> {
+	Reminder findByUserId(String userId);
 }

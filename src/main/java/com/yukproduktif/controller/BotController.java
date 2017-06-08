@@ -2,6 +2,7 @@
 package com.yukproduktif.controller;
 import com.yukproduktif.model.*;
 import com.yukproduktif.model.body.*;
+import com.yukproduktif.model.body.ReminderBody;
 import com.yukproduktif.model.view.*;
 import com.yukproduktif.service.*;
 import com.yukproduktif.repository.*;
@@ -32,9 +33,6 @@ public class BotController
     @Autowired
     @Qualifier("com.linecorp.channel_access_token")
     String lChannelAccessToken;
-    
-    @Autowired
-    ReminderWajibRepository reminderWajibRepo;
     
     @Autowired
     ReminderRepository reminderRepo;
@@ -158,28 +156,15 @@ public class BotController
      * @param newStatus	: status baru yang akan di update pada data reminder
      */
     private void changeReminderStatus(String userId, String prayerName, boolean newStatus){
-    	final String LIST_WAJIB = "shubuh dzuhur ashar magrib";
-    	Boolean isWajib = LIST_WAJIB.contains(prayerName);
-    	
-    	ReminderRepository repo;
-    	IReminder userReminder = null;
-    	
-    	if (isWajib){
-    		repo = reminderWajibRepo;
-    		userReminder = (ReminderWajib) repo.findByUserId(userId);
-    	}
-    	else {
-    		repo = reminderWajibRepo;
-    		userReminder = (ReminderSunnah) repo.findByUserId(userId);
-    	}    	
-    	
+    	Reminder userReminder = reminderRepo.findByUserId(userId);  	
 		String reminderRespon = "";
+		
 		//apabila user id sudah terdaftar / sudah pernah mengaktifkan reminder
 		if (userReminder != null){
 			if (userReminder.isActive(prayerName) != newStatus){
 				userReminder.setReminder(prayerName, newStatus);
 				try {
-					repo.save(userReminder);
+					reminderRepo.save(userReminder);
 					reminderRespon = newStatus == true ? 
 							"Reminder untuk adzan " + prayerName + " berhasil diaktifkan." :
 							"Reminder untuk adzan " + prayerName + " berihasil dinon-aktifkan."; 
@@ -201,9 +186,9 @@ public class BotController
 		else {
 			try {
 				//register user
-				ReminderWajib newUserReminder = new ReminderWajib(userId);
+				Reminder newUserReminder = new Reminder(userId);
 				newUserReminder.setReminder(prayerName, true);
-				repo.save(newUserReminder);
+				reminderRepo.save(newUserReminder);
 				reminderRespon = "Reminder untuk adzan " + prayerName + " berhasil diaktifkan.";
 			} 
 			catch (Exception ex){
@@ -256,10 +241,10 @@ public class BotController
     		sendPrayerTimes(userId);
     	}
     	else if (message.equals("reminder wajib")){
-    		//sendReminderWajibView(userId);
+    		sendReminderWajibView(userId);
     	}
     	else if (message.equals("reminder sunnah")){
-    		//sendReminderSunnahView(userId);
+    		sendReminderSunnahView(userId);
     	}
     	
     	else if (message.contains("reminder")){
@@ -286,10 +271,9 @@ public class BotController
 		botService.pushMessage(userId, adzanView.getTextMessage());
     }
     
-    /*
     private void sendReminderWajibView(String userId){
     	try {
-			ReminderWajib reminder = reminderRepo.findByUserId(userId);
+			Reminder reminder = reminderRepo.findByUserId(userId);
 			if (reminder != null){
 				botService.sendTemplateMessage(userId, new ReminderWajibView(reminder).getViewMessage());
 			}
@@ -306,7 +290,7 @@ public class BotController
     private void sendReminderSunnahView(String userId){
     	//Just a prototype
 		botService.sendTemplateMessage(userId, new ReminderSunnahView().getViewMessage());    	
-    }*/
+    }
     
     //To-Do
     //Kirim 5 masjid terdekat berdasarkan lokasi user

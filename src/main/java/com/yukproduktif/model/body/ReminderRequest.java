@@ -1,6 +1,6 @@
 package com.yukproduktif.model.body;
 
 public class ReminderRequest {
-    public Reminder reminder;
+    public ReminderBody reminder;
     public String token;
 }
