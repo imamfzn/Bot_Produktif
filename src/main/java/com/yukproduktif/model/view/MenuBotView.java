@@ -24,7 +24,7 @@ public class MenuBotView {
 	
 	public MenuBotView(){
 		actions = Arrays.asList(
-				new MessageAction("Jadwal Adzan", "jadwal shalat"),
+				new MessageAction("Jadwal Shalat", "jadwal shalat"),
 				new MessageAction("Reminder Wajib", "reminder wajib"),
 				new MessageAction("Reminder Sunnah", "reminder sunnah"),
 				new MessageAction("Masjid Terdekat", "masjid terdekat")
