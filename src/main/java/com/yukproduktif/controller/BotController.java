@@ -34,7 +34,7 @@ public class BotController
     String lChannelAccessToken;
     
     @Autowired
-    ReminderRepository reminderRepo;
+    ReminderWajibRepository reminderRepo;
     
     LineBotService botService = new LineBotService();
     AdzanService adzanService = new AdzanService();
@@ -165,12 +165,12 @@ public class BotController
 					reminderRespon = newStatus == true ? 
 							"Reminder untuk adzan " + adzanName + " berhasil diaktifkan." :
 							"Reminder untuk adzan " + adzanName + " berihasil dinon-aktifkan."; 
-				} 
+				}
 				catch (Exception ex){
 					reminderRespon = newStatus == true ?
 							"Gagal mengaktifkan reminder, silahkan coba lagi." :
 							"Gagal menonaktifkan reminder, silahkan coba lagi.";
-				}	
+				}
 			}
 			else {
 				reminderRespon = newStatus == true ? 
