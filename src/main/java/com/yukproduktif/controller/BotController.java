@@ -265,7 +265,6 @@ public class BotController
     	else if (message.equals("reminder sunnah")){
     		sendReminderSunnahView(userId);
     	}
-    	
     	else if (message.contains("reminder")){
     		//mengaktifkan / non-aktifkan reminder (wajib, sunnah)
     		reminderHandler(userId, message);
@@ -307,14 +306,22 @@ public class BotController
     }
     
     private void sendReminderSunnahView(String userId){
-    	//Just a prototype
-		botService.sendTemplateMessage(userId, new ReminderSunnahView().getViewMessage());    	
+    	try {
+    		ReminderSunnah reminder = reminderSunnahRepo.findByUserId(userId);
+    		if (reminder != null){
+    			botService.sendTemplateMessage(userId, new ReminderSunnahView(reminder).getViewMessage());
+    		}
+    		else {
+    			botService.sendTemplateMessage(userId, new ReminderSunnahView().getViewMessage());
+    		}
+    	}
+    	
+    	catch (Exception ex){
+    		ex.printStackTrace();
+    	}
+		    	
     }
     
-    //To-Do
-    //Kirim 5 masjid terdekat berdasarkan lokasi user
-    //Panggil service masjid
-    //kirim data masjid menggunakan carousel 5 kolom, kirim pake LineBotService
     private void sendNearestMosque(Location loc,  String userId){
     	botService.sendTemplateMessage(userId, new MosqueView(new MosqueService().FindMosque(loc)).getViewMessage());
     }

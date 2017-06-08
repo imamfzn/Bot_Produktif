@@ -35,6 +35,14 @@ public class ReminderSunnah implements IReminder {
 		this.dhuha = dhuha;
 		this.tahajud = tahajud;
 	}
+	
+	public boolean isDhunaActive(){
+		return dhuha;
+	}
+	
+	public boolean isTahajudActive(){
+		return tahajud;
+	}
 		
 	private void setAllReminder(boolean status){
 		dhuha = tahajud = status;
