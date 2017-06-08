@@ -246,22 +246,6 @@ public class BotController
     	 */
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
-    
-    @RequestMapping(value="/test", method=RequestMethod.GET)
-    public ResponseEntity<String> test(){
-    	/* DEBUG */
-    	IReminderRepository repo = reminderSunnahRepo;
-    	IReminder r = repo.findOne("xxx");
-    	ReminderSunnah r1= (ReminderSunnah) repo.findByUserId("xxx");
-    	if (r == null) System.out.print("ada kok");
-    	if (r1 == null) System.out.print("r1 ada kok");
-    	
-    	repo = reminderWajibRepo;
-    	r = repo.findByUserId("xxx");
-    	if (r == null) System.out.print("ada kok wajibmah");
-    	return new ResponseEntity<String>(HttpStatus.OK);
-    }
-
 
     /**
      * @author Muhammad Imam Fauzan
