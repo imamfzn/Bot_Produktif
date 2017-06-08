@@ -160,6 +160,7 @@ public class BotController
     	final String LIST_WAJIB =  "shubuh dzuhur ashar magrib isya";
     	IReminderRepository repo = null;
     	boolean isWajib = LIST_WAJIB.contains(prayerName);
+
     	if (isWajib){
     		repo = reminderWajibRepo;
     	}
@@ -169,7 +170,9 @@ public class BotController
     	
     	IReminder userReminder = repo.findOne(userId);
     
-		String reminderRespon = "";		
+		String reminderRespon = "";
+		String reminderType = isWajib ? "adzan " : "shalat ";
+		
 		//apabila user id sudah terdaftar / sudah pernah mengaktifkan reminder
 		if (userReminder != null){
 			if (userReminder.isActive(prayerName) != newStatus){
@@ -177,8 +180,8 @@ public class BotController
 				try {
 					repo.save(userReminder);
 					reminderRespon = newStatus == true ? 
-							"Reminder untuk adzan " + prayerName + " berhasil diaktifkan." :
-							"Reminder untuk adzan " + prayerName + " berihasil dinon-aktifkan."; 
+							"Reminder untuk " + reminderType + prayerName + " berhasil diaktifkan." :
+							"Reminder untuk " + reminderType + prayerName + " berihasil dinon-aktifkan."; 
 				}
 				catch (Exception ex){
 					reminderRespon = newStatus == true ?
@@ -188,8 +191,8 @@ public class BotController
 			}
 			else {
 				reminderRespon = newStatus == true ? 
-						"Reminder untuk adzan " + prayerName + " sudah aktif." :
-						"Reminder untuk adzan " + prayerName + " sudah tidak aktif.";
+						"Reminder untuk " + reminderType + prayerName + " sudah aktif." :
+						"Reminder untuk " + reminderType + prayerName + " sudah tidak aktif.";
 			}
 		}
 		
