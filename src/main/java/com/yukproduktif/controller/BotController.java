@@ -165,6 +165,7 @@ public class BotController
     	}
     	else {
     		repo = reminderSunnahRepo;
+    		System.out.println("kesini atuh coy");
     	}
     	
     	IReminder userReminder = repo.findByUserId(userId);  
