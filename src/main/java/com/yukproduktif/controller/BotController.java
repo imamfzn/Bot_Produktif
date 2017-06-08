@@ -167,7 +167,7 @@ public class BotController
     		repo = reminderSunnahRepo;
     	}
     	
-    	IReminder userReminder = repo.findByUserId(userId);
+    	IReminder userReminder = repo.findOne(userId);
     
 		String reminderRespon = "";		
 		//apabila user id sudah terdaftar / sudah pernah mengaktifkan reminder
@@ -243,7 +243,7 @@ public class BotController
     public ResponseEntity<String> test(){
     	/* DEBUG */
     	IReminderRepository repo = reminderSunnahRepo;
-    	IReminder r = repo.findByUserId("xxx");
+    	IReminder r = repo.findOne("xxx");
     	ReminderSunnah r1= (ReminderSunnah) repo.findByUserId("xxx");
     	if (r == null) System.out.print("ada kok");
     	if (r1 == null) System.out.print("r1 ada kok");
