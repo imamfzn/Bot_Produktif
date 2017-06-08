@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReminderRepositoryWajib extends IReminderRepository,  CrudRepository<ReminderWajib, String> {
+public interface ReminderWajibRepository extends IReminderRepository,  CrudRepository<ReminderWajib, String> {
 	ReminderWajib findByUserId(String userId);
 }

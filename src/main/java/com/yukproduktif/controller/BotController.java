@@ -34,10 +34,10 @@ public class BotController
     String lChannelAccessToken;
     
     @Autowired
-    ReminderRepositoryWajib reminderWajibRepo;
+    ReminderWajibRepository reminderWajibRepo;
     
     @Autowired
-    ReminderRepositorySunnah reminderSunnahRepo;
+    ReminderSunnahRepository reminderSunnahRepo;
     
     LineBotService botService = new LineBotService();
     AdzanService adzanService = new AdzanService();
