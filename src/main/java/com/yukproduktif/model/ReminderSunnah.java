@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "reminder_sunnah")
-public class ReminderSunnah {
+public class ReminderSunnah implements IReminder {
 	@Id
 	@Column(name = "reminder_user_id")
 	private String userId;

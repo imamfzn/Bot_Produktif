@@ -34,7 +34,11 @@ public class BotController
     String lChannelAccessToken;
     
     @Autowired
-    ReminderWajibRepository reminderRepo;
+    ReminderWajibRepository reminderWajibRepo;
+    
+    @Autowired
+    ReminderRepository reminderRepo;
+    
     
     LineBotService botService = new LineBotService();
     AdzanService adzanService = new AdzanService();
@@ -139,8 +143,8 @@ public class BotController
     			//Mengaktifkan / Me-nonaktifkan reminder
     			if (request[2].equals("on") || request[2].equals("off")){
     				boolean newStatus = request[2].equals("on");
-    				String adzanName = request[1];
-    				changeReminderStatus(userId, adzanName, newStatus);
+    				String prayerName = request[1];
+    				changeReminderStatus(userId, prayerName, newStatus);
     			}
     		}
     	}
@@ -153,18 +157,32 @@ public class BotController
      * @param adzanName : nama waktu adzan
      * @param newStatus	: status baru yang akan di update pada data reminder
      */
-    private void changeReminderStatus(String userId, String adzanName, boolean newStatus){
-    	ReminderWajib userReminder = (ReminderWajib) reminderRepo.findByUserId(userId);
+    private void changeReminderStatus(String userId, String prayerName, boolean newStatus){
+    	final String LIST_WAJIB = "shubuh dzuhur ashar magrib";
+    	Boolean isWajib = LIST_WAJIB.contains(prayerName);
+    	
+    	ReminderRepository repo;
+    	IReminder userReminder = null;
+    	
+    	if (isWajib){
+    		repo = reminderWajibRepo;
+    		userReminder = (ReminderWajib) repo.findByUserId(userId);
+    	}
+    	else {
+    		repo = reminderWajibRepo;
+    		userReminder = (ReminderSunnah) repo.findByUserId(userId);
+    	}    	
+    	
 		String reminderRespon = "";
 		//apabila user id sudah terdaftar / sudah pernah mengaktifkan reminder
 		if (userReminder != null){
-			if (userReminder.isActive(adzanName) != newStatus){
-				userReminder.setReminder(adzanName, newStatus);
+			if (userReminder.isActive(prayerName) != newStatus){
+				userReminder.setReminder(prayerName, newStatus);
 				try {
-					reminderRepo.save(userReminder);
+					repo.save(userReminder);
 					reminderRespon = newStatus == true ? 
-							"Reminder untuk adzan " + adzanName + " berhasil diaktifkan." :
-							"Reminder untuk adzan " + adzanName + " berihasil dinon-aktifkan."; 
+							"Reminder untuk adzan " + prayerName + " berhasil diaktifkan." :
+							"Reminder untuk adzan " + prayerName + " berihasil dinon-aktifkan."; 
 				}
 				catch (Exception ex){
 					reminderRespon = newStatus == true ?
@@ -174,8 +192,8 @@ public class BotController
 			}
 			else {
 				reminderRespon = newStatus == true ? 
-						"Reminder untuk adzan " + adzanName + " sudah aktif." :
-						"Reminder untuk adzan " + adzanName + " sudah tidak aktif.";
+						"Reminder untuk adzan " + prayerName + " sudah aktif." :
+						"Reminder untuk adzan " + prayerName + " sudah tidak aktif.";
 			}
 		}
 		
@@ -184,9 +202,9 @@ public class BotController
 			try {
 				//register user
 				ReminderWajib newUserReminder = new ReminderWajib(userId);
-				newUserReminder.setReminder(adzanName, true);
-				reminderRepo.save(newUserReminder);
-				reminderRespon = "Reminder untuk adzan " + adzanName + " berhasil diaktifkan.";
+				newUserReminder.setReminder(prayerName, true);
+				repo.save(newUserReminder);
+				reminderRespon = "Reminder untuk adzan " + prayerName + " berhasil diaktifkan.";
 			} 
 			catch (Exception ex){
 				reminderRespon = "Gagal mengaktifkan reminder, silahkan coba lagi.";
@@ -238,10 +256,10 @@ public class BotController
     		sendPrayerTimes(userId);
     	}
     	else if (message.equals("reminder wajib")){
-    		sendReminderWajibView(userId);
+    		//sendReminderWajibView(userId);
     	}
     	else if (message.equals("reminder sunnah")){
-    		sendReminderSunnahView(userId);
+    		//sendReminderSunnahView(userId);
     	}
     	
     	else if (message.contains("reminder")){
@@ -268,6 +286,7 @@ public class BotController
 		botService.pushMessage(userId, adzanView.getTextMessage());
     }
     
+    /*
     private void sendReminderWajibView(String userId){
     	try {
 			ReminderWajib reminder = reminderRepo.findByUserId(userId);
@@ -287,7 +306,7 @@ public class BotController
     private void sendReminderSunnahView(String userId){
     	//Just a prototype
 		botService.sendTemplateMessage(userId, new ReminderSunnahView().getViewMessage());    	
-    }
+    }*/
     
     //To-Do
     //Kirim 5 masjid terdekat berdasarkan lokasi user

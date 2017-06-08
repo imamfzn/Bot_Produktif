@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "reminder")
-public class ReminderWajib {
+public class ReminderWajib implements IReminder{
 	
 	@Id
 	@Column(name = "reminder_user_id")
