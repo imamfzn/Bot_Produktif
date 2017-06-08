@@ -9,7 +9,6 @@ package com.yukproduktif.model;
 public class Mosque {
 	public String name;
 	public String address;
-	public String distance;
-	public String photoUrl;
-	public String gmapsUrl;
+	public String photoURL;
+	public String gmapsURL;
 }

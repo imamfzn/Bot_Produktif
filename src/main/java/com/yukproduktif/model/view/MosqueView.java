@@ -23,8 +23,8 @@ public class MosqueView {
 	public MosqueView(List<Mosque> mosques){
 		columns = new ArrayList<CarouselColumn>();
 		for (Mosque m : mosques){
-			List<Action> actions = Arrays.asList(new URIAction("Lihat Lokasi", m.gmapsUrl)); //cannot direct cast to List<Action>
-			columns.add(new CarouselColumn(m.photoUrl.equals("x") ? IMG : m.photoUrl ,m.name,m.address == null? m.distance : m.address, actions));
+			List<Action> actions = Arrays.asList(new URIAction("Lihat Lokasi", m.gmapsURL)); //cannot direct cast to List<Action>
+			columns.add(new CarouselColumn(m.photoURL ,m.name,m.address, actions));
 		}
 
 		carousel = new CarouselTemplate(columns);
