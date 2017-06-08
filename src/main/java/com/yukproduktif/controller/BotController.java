@@ -244,7 +244,9 @@ public class BotController
     	/* DEBUG */
     	IReminderRepository repo = reminderSunnahRepo;
     	IReminder r = repo.findByUserId("xxx");
+    	ReminderSunnah r1= (ReminderSunnah) repo.findByUserId("xxx");
     	if (r == null) System.out.print("ada kok");
+    	if (r1 == null) System.out.print("r1 ada kok");
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
 
