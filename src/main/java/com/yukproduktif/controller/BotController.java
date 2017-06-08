@@ -165,10 +165,10 @@ public class BotController
     	}
     	else {
     		repo = reminderSunnahRepo;
-    		System.out.println("kesini atuh coy");
     	}
     	
-    	IReminder userReminder = repo.findByUserId(userId);  
+    	IReminder userReminder = repo.findByUserId(userId);
+    
 		String reminderRespon = "";		
 		//apabila user id sudah terdaftar / sudah pernah mengaktifkan reminder
 		if (userReminder != null){
@@ -238,6 +238,16 @@ public class BotController
     	 */
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
+    
+    @RequestMapping(value="/test", method=RequestMethod.GET)
+    public ResponseEntity<String> test(){
+    	/* DEBUG */
+    	IReminderRepository repo = reminderSunnahRepo;
+    	IReminder r = repo.findByUserId("xxx");
+    	if (r == null) System.out.print("ada kok");
+    	return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
 
     /**
      * @author Muhammad Imam Fauzan
