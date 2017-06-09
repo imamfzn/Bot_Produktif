@@ -1,6 +1,9 @@
 package com.yukproduktif.model.body;
 
 public class ReminderRequest {
-    public ReminderBody reminder;
     public String token;
-}
+    public String name;
+    public String time;
+    public String status;
+    public String type;
+ }

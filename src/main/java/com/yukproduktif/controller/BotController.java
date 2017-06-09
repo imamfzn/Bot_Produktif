@@ -247,7 +247,7 @@ public class BotController
         Gson gson = new Gson();
         ReminderRequest reminderRequest = gson.fromJson(data, ReminderRequest.class);
     	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
-        String MESSAGE = "Saatnya adzan " + reminderRequest.reminder.name + " untuk daerah Bandung dan sekitarnya.";
+        String MESSAGE = "Saatnya adzan " + reminderRequest.name+ " untuk daerah Bandung dan sekitarnya.";
 
     	botService.setChannelAccessToken(lChannelAccessToken);
     	botService.pushMessage(ID_TARGET, MESSAGE);
