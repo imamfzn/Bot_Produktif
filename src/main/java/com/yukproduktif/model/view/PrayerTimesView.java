@@ -69,7 +69,7 @@ public class PrayerTimesView {
 		textMessage = 
 				"[ JADWAL SHALAT ]\n"
 				+ "Bismillah\uD83C\uDF43\n\n"
-				+ "\uD83D\uDCC6 Rabu, 17 Mei 2017\n\""
+				+ "\uD83D\uDCC6 Rabu, 17 Mei 2017\n"
 				+ "\uD83C\uDF3A " + hij[0] + " " + getMonthHij(Integer.parseInt(hij[1])) + " " + hij[2] + "H\n"
 				+ "\uD83C\uDFE2 Bandung dan sekitarnya\n\n"
 				+ "Shubuh " + prayerTimes.wajib.shubuh + "\n"
