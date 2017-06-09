@@ -250,12 +250,13 @@ public class BotController
     	/* DEBUG */
         Gson gson = new Gson();
         ReminderRequest reminderRequest = gson.fromJson(data, ReminderRequest.class);
-    	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
+    	//String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
     	//Set<String> targets = new HashSet<String>();
     	//targets.add("Ccb45584fc566bd5270591a3d010ae4b0");
     	//targets.add("Ue43858bc93d6a8e1b172d57e1b34c853");
         //String MESSAGE = "Saatnya adzan " + reminderRequest.name+ " untuk daerah Bandung dan sekitarnya.";
         String message = "";
+        List<String> targets = null;
         if (reminderRequest.type.equals("fardh")){
         	boolean isPreReminder = !reminderRequest.status;
         	if (isPreReminder){
@@ -263,16 +264,19 @@ public class BotController
         	} else {
         		message = "Saatnya adzan " + reminderRequest.name + " untuk daerah Bandung dan Sekitarnya, ayo mari kita shalat";
         	}
-        	
+        	        	
         	
         	//reminderWajibRepo.
         }
         else {
         	message = "Ayo mari kita laksanakan shalat " + reminderRequest.name;
         }
-
-    	botService.setChannelAccessToken(lChannelAccessToken);
-    	botService.pushMessage(ID_TARGET, message);
+        
+        targets = getUserReminder(reminderRequest.type, reminderRequest.name);
+        botService.setChannelAccessToken(lChannelAccessToken);
+        for (String userId : targets){
+        	botService.pushMessage(userId, message);
+        }    	
     	
     	/**
     	 * to-do :
@@ -281,6 +285,25 @@ public class BotController
     	 * Kirim reminder ke line follower ..
     	 */
     	return new ResponseEntity<String>(HttpStatus.OK);
+    }
+    
+    private List<String> getUserReminder(String type, String prayerName){
+    	if (type.equals("fardh")){
+    		switch(prayerName) {
+    			case "shubuh" :  return reminderWajibRepo.findByShubuh();
+    			case "dzuhur" :  return reminderWajibRepo.findByDzuhur();
+    			case "ashar" :  return reminderWajibRepo.findByAshar();
+    			case "magrib" :  return reminderWajibRepo.findByMagrib();
+    			case "isya" :  return reminderWajibRepo.findByIsya();
+    		}
+    	}
+    	else {
+    		switch(prayerName) {
+    			case "dhuha" :  return reminderSunnahRepo.findByDhuha();
+    			case "tahajud" :  return reminderSunnahRepo.findByTahajud();
+    		}
+    	}
+    	return null;
     }
     
     @RequestMapping(value="/test", method=RequestMethod.GET)
