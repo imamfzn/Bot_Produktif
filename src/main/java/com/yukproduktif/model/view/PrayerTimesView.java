@@ -3,9 +3,12 @@ import com.yukproduktif.model.PrayerTimes;
 import com.linecorp.bot.model.message.*;
 import com.linecorp.bot.model.message.template.*;
 import com.linecorp.bot.model.action.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
-
+import java.util.Date;
 
 /**
  * 
@@ -64,12 +67,20 @@ public class PrayerTimesView {
 		viewMessage = new TemplateMessage(TITLE, carousel);
 		
 		String[] hij = prayerTimes.hijriyah.split("/");
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/mm/yyyy");
+		Date now = null;
+		try {
+			now = dateFormatter.parse(prayerTimes.masehi);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//create text message format..
 		textMessage = 
 				"[ JADWAL SHALAT ]\n"
 				+ "Bismillah\uD83C\uDF43\n\n"
-				+ "\uD83D\uDCC6 Rabu, 17 Mei 2017\n"
+				+ "\uD83D\uDCC6 " + getDay(now.getDay()) + ", " + now.getDate() + " " + getMonth(now.getMonth()) + " " + now.getYear() + "\n"
 				+ "\uD83C\uDF3A " + hij[0] + " " + getMonthHij(Integer.parseInt(hij[1])) + " " + hij[2] + "H\n"
 				+ "\uD83C\uDFE2 Bandung dan sekitarnya\n\n"
 				+ "Shubuh " + prayerTimes.wajib.shubuh + "\n"
@@ -86,6 +97,17 @@ public class PrayerTimesView {
 		String[] months = {"Muharram", "Safar", "Rabiul awal", "Rabiul akhir", "Jumadil awal", "Jumadil akhir",
 				"Rajab", "Sya'ban", "Ramadhan", "Syawal", "Dzulkaidah", "Dzulhijjah"};
 		return months[--month];
+	}
+	
+	private String getDay(int day){
+		String[] days = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"};
+		return days[day];
+	}
+	
+	private String getMonth(int month){
+		String[] months = {"Januri", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
+		                 "November", "Desember"};
+		return months[month];
 	}
 	
 	public TemplateMessage getViewMessage(){
