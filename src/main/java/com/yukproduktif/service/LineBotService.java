@@ -1,6 +1,9 @@
 package com.yukproduktif.service;
 import java.io.IOException;
+import java.util.Set;
+
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
+import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
@@ -37,6 +40,22 @@ public class LineBotService {
 	        .create(this.channelAccessToken)
 	        .build()
 	        .pushMessage(pushMessage)
+	        .execute();
+	        System.out.println(response.code() + " " + response.message());
+	    } catch (IOException e) {
+	    	System.out.println("Exception is raised ");
+	        e.printStackTrace();
+	    }
+	}
+	
+	public void multicast(Set<String> sourcesId, String message){
+		TextMessage textMessage = new TextMessage(message);
+	    Multicast multicast = new Multicast(sourcesId, textMessage);
+	    try {
+	    	Response<BotApiResponse> response = LineMessagingServiceBuilder
+	        .create(this.channelAccessToken)
+	        .build()
+	        .multicast(multicast)
 	        .execute();
 	        System.out.println(response.code() + " " + response.message());
 	    } catch (IOException e) {

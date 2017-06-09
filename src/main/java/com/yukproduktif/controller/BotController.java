@@ -8,6 +8,8 @@ import com.yukproduktif.repository.*;
 import com.google.gson.Gson;
 import com.linecorp.bot.client.LineSignatureValidator;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -246,7 +248,10 @@ public class BotController
     	/* DEBUG */
         Gson gson = new Gson();
         ReminderRequest reminderRequest = gson.fromJson(data, ReminderRequest.class);
-    	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
+    	//String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
+    	Set<String> targets = null;
+    	targets.add("Ccb45584fc566bd5270591a3d010ae4b0");
+    	targets.add("Ue43858bc93d6a8e1b172d57e1b34c853");
         //String MESSAGE = "Saatnya adzan " + reminderRequest.name+ " untuk daerah Bandung dan sekitarnya.";
         String message = "";
         if (reminderRequest.type.equals("fardh")){
@@ -256,13 +261,16 @@ public class BotController
         	} else {
         		message = "Saatnya adzan " + reminderRequest.name + " untuk daerah Bandung dan Sekitarnya, ayo mari kita shalat";
         	}
+        	
+        	
+        	//reminderWajibRepo.
         }
         else {
         	message = "Ayo mari kita laksanakan shalat " + reminderRequest.name;
         }
 
     	botService.setChannelAccessToken(lChannelAccessToken);
-    	botService.pushMessage(ID_TARGET, message);
+    	botService.multicast(targets, message);
     	
     	/**
     	 * to-do :
