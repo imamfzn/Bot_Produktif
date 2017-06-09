@@ -67,7 +67,7 @@ public class PrayerTimesView {
 		viewMessage = new TemplateMessage(TITLE, carousel);
 		
 		String[] hij = prayerTimes.hijriyah.split("/");
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/mm/yyyy");
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("d/M/yyyy");
 		Date now = null;
 		try {
 			now = dateFormatter.parse(prayerTimes.masehi);
