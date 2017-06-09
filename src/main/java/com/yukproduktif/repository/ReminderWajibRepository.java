@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface ReminderWajibRepository extends IReminderRepository,  CrudRepository<ReminderWajib, String> {
 	ReminderWajib findByUserId(String userId);
 	
-	@Query("select r.reminder_user_id from reminder_wajib r")
-	List<String> findUserHasActivatedShubuh();
+	@Query("select r.reminder_user_id from reminder_wajib r where r.reminder_shubuh = t")
+	List<String> findByShubuh();
 }

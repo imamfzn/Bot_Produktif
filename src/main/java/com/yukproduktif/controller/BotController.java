@@ -285,7 +285,7 @@ public class BotController
     
     @RequestMapping(value="/test", method=RequestMethod.GET)
     public ResponseEntity<List<String>> test(){
-    	List<String> users = reminderWajibRepo.findUserHasActivatedShubuh();
+    	List<String> users = reminderWajibRepo.findByShubuh();
     	return new ResponseEntity<List<String>>(users,HttpStatus.OK);
  
     }
