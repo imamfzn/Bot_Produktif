@@ -306,8 +306,8 @@ public class BotController
     //Masih Prototype, nunggu struktur return dari service adzan fix.
     private void sendPrayerTimes(String userId){
     	PrayerTimesView prayerView = new PrayerTimesView(adzanService.getPrayerTimes());
-    	botService.sendTemplateMessage(userId, adzanView.getViewMessage());
-		botService.pushMessage(userId, adzanView.getTextMessage());
+    	botService.sendTemplateMessage(userId, prayerView.getViewMessage());
+		botService.pushMessage(userId, prayerView.getTextMessage());
 		
     }
     
