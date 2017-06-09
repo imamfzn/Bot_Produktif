@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.linecorp.bot.client.LineSignatureValidator;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -283,9 +284,10 @@ public class BotController
     }
     
     @RequestMapping(value="/test", method=RequestMethod.GET)
-    public ResponseEntity<PrayerTimes> test(){
-    	PrayerTimes p = adzanService.getPrayerTimes();
-    	return new ResponseEntity<PrayerTimes>(p,HttpStatus.OK);
+    public ResponseEntity<List<String>> test(){
+    	List<String> users = reminderWajibRepo.findUserHasActivatedShubuh();
+    	return new ResponseEntity<List<String>>(users,HttpStatus.OK);
+ 
     }
 
     /**
