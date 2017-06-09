@@ -8,6 +8,7 @@ import com.yukproduktif.repository.*;
 import com.google.gson.Gson;
 import com.linecorp.bot.client.LineSignatureValidator;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -249,7 +250,7 @@ public class BotController
         Gson gson = new Gson();
         ReminderRequest reminderRequest = gson.fromJson(data, ReminderRequest.class);
     	//String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
-    	Set<String> targets = null;
+    	Set<String> targets = new HashSet<String>();
     	targets.add("Ccb45584fc566bd5270591a3d010ae4b0");
     	targets.add("Ue43858bc93d6a8e1b172d57e1b34c853");
         //String MESSAGE = "Saatnya adzan " + reminderRequest.name+ " untuk daerah Bandung dan sekitarnya.";
