@@ -260,6 +260,12 @@ public class BotController
     	 */
     	return new ResponseEntity<String>(HttpStatus.OK);
     }
+    
+    @RequestMapping(value="/test", method=RequestMethod.GET)
+    public ResponseEntity<PrayerTimes> test(){
+    	PrayerTimes p = adzanService.getPrayerTimes();
+    	return new ResponseEntity<PrayerTimes>(p,HttpStatus.OK);
+    }
 
     /**
      * @author Muhammad Imam Fauzan
