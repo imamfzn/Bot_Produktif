@@ -6,10 +6,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.sql.Time;
+
+import com.google.gson.Gson;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 
 /**
@@ -23,10 +24,23 @@ public class AdzanService {
 	private static final String LOCATION = "bandung";
 	public AdzanService(){};
 	
+	public PrayerTimes getPrayerTimes(){
+		try {
+			String response = Unirest.get(URL).asJson().getBody().toString();
+			Gson gson = new Gson();
+		    PrayerTimes prayerTimes =  gson.fromJson(response, PrayerTimes.class);
+		    return prayerTimes;
+		    
+		} catch (UnirestException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	/**
 	 * Get jadwal adzan dari service adzan 
 	 * @return jadwal adzan
-	 */
+	 
 	public PrayerTimes getPrayerTimes(){
 		Date now = new Date();
 		String serviceURL = MessageFormat.format("{0}{1}/{2}/{3}/{4}", URL, now.getDate(), now.getMonth(), now.getYear(), LOCATION);
@@ -55,6 +69,8 @@ public class AdzanService {
 			e.printStackTrace();
 		}
 		return null;		
-	}
+	}*/
+	
+	
 
 }
