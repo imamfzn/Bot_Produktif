@@ -250,7 +250,7 @@ public class BotController
         //String MESSAGE = "Saatnya adzan " + reminderRequest.name+ " untuk daerah Bandung dan sekitarnya.";
         String message = "";
         if (reminderRequest.type.equals("fardh")){
-        	boolean isPreReminder = reminderRequest.status;
+        	boolean isPreReminder = !reminderRequest.status;
         	if (isPreReminder){
         		message = "10 Menit lagi memasuki waktu adzan " + reminderRequest.name + " untuk daerah Bandung dan Sekitarnya, ayo segera bersiap-siap";		
         	} else {
