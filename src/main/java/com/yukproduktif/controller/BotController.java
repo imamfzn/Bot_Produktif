@@ -305,8 +305,10 @@ public class BotController
     //Kirim data adzan yang udah diambil dari service adzan pake LineBotService1
     //Masih Prototype, nunggu struktur return dari service adzan fix.
     private void sendPrayerTimes(String userId){
+    	PrayerTimesView prayerView = new PrayerTimesView(adzanService.getPrayerTimes());
     	botService.sendTemplateMessage(userId, adzanView.getViewMessage());
 		botService.pushMessage(userId, adzanView.getTextMessage());
+		
     }
     
     private void sendReminderWajibView(String userId){

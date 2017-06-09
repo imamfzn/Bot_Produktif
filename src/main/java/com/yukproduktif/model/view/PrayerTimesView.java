@@ -48,24 +48,44 @@ public class PrayerTimesView {
 	       
 	}
 	
-	public PrayerTimesView(PrayerTimes jadwalAdzan){
+	public PrayerTimesView(PrayerTimes prayerTimes){
 		//create view carousel message
 		actions = Arrays.asList(new URIAction("Yuk Shalat! :)", "https://line.me/R/ti/p/%40LTA5871H")); //dumy button
 		
 		columns = Arrays.asList(
-				new CarouselColumn(IMAGE_URL_SHUBUH,"Waktu Shubuh","04:30 am", actions),
-				new CarouselColumn(IMAGE_URL_DZUHUR,"Waktu Dzuhur","04:30 am", actions),
-				new CarouselColumn(IMAGE_URL_ASHAR,"Waktu Ashar","04:30 am", actions),
-				new CarouselColumn(IMAGE_URL_MAGRIB,"Waktu Magrib","04:30 am", actions),
-				new CarouselColumn(IMAGE_URL_ISYA,"Waktu Isya","04:30 am", actions)
+				new CarouselColumn(IMAGE_URL_SHUBUH,"Waktu Shubuh",prayerTimes.wajib.shubuh, actions),
+				new CarouselColumn(IMAGE_URL_DZUHUR,"Waktu Dzuhur",prayerTimes.wajib.dzuhur, actions),
+				new CarouselColumn(IMAGE_URL_ASHAR,"Waktu Ashar",prayerTimes.wajib.ashar, actions),
+				new CarouselColumn(IMAGE_URL_MAGRIB,"Waktu Magrib",prayerTimes.wajib.magrib, actions),
+				new CarouselColumn(IMAGE_URL_ISYA,"Waktu Isya",prayerTimes.wajib.isya, actions)
 		);
 		
 		carousel = new CarouselTemplate(columns);
 		viewMessage = new TemplateMessage(TITLE, carousel);
 		
+		String[] hij = prayerTimes.hijriyah.split("/");
+		
 		//create text message format..
-		textMessage = "[ JADWAL SHALAT ]\nBismillah\uD83C\uDF43\n\n\uD83D\uDCC6 Rabu, 17 Mei 2017\n\uD83C\uDF3A 20 Sya'ban 1438H\n\uD83C\uDFE2Bandung dan sekitarnya\n\nShubuh  04:35 am\nDzuhur 11:51 am\nAshar 03:13 pm\nMaghrib 05:46 pm\nIsya 06:59 pm\n\n\"Dan yang menghalang-halangi infak mereka untuk diterima adalah karena mereka kafir (ingkar) kepada Allah dan Rasul-Nya dan mereka tidak melaksanakan sholat, melainkan dengan malas dan tidak (pula) menginfakkan (harta) mereka, melainkan dengan rasa enggan (terpaksa).\"\n\uD83C\uDF42QS. At-Taubah 9: Ayat 54\uD83C\uDF42\n\n#AssalamReminder\n#MadaniBersama\n#SatuDalamIslam";
+		textMessage = 
+				"[ JADWAL SHALAT ]\n"
+				+ "Bismillah\uD83C\uDF43\n\n\uD83D"
+				+ "\uDCC6 Rabu, 17 Mei 2017\n\uD83C4"
+				+ "\uDF3A " + hij[0] + " " + getMonthHij(Integer.parseInt(hij[1])) + " " + hij[2] + "H\n\uD83C"
+				+ "\uDFE2Bandung dan sekitarnya\n\n"
+				+ "Shubuh " + prayerTimes.wajib.shubuh + "\n"
+				+ "Dzuhur " + prayerTimes.wajib.dzuhur + "\n"
+				+ "Ashar "  + prayerTimes.wajib.ashar + "\n"
+				+ "Maghrib "+ prayerTimes.wajib.magrib + "\n"
+				+ "Isya "   + prayerTimes.wajib.isya + "\n\n\""
+				+ "Dan yang menghalang-halangi infak mereka untuk diterima adalah karena mereka kafir (ingkar) kepada Allah dan Rasul-Nya dan mereka tidak melaksanakan sholat, melainkan dengan malas dan tidak (pula) menginfakkan (harta) mereka, melainkan dengan rasa enggan (terpaksa).\"\n\uD83C\uDF42QS. At-Taubah 9: Ayat 54\uD83C\uDF42\n\n"
+				+ "#AssalamReminder\n#MadaniBersama\n#SatuDalamIslam";
 	       
+	}
+	
+	private String getMonthHij(int month){
+		String[] months = {"Muharram", "Safar", "Rabiul awal", "Rabiul akhir", "Jumadil awal", "Jumadil akhir",
+				"Rajab", "Sya'ban", "Ramadhan", "Syawal", "Dzulkaidah", "Dzulhijjah"};
+		return months[--month];
 	}
 	
 	public TemplateMessage getViewMessage(){
