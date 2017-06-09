@@ -254,7 +254,7 @@ public class BotController
         	if (isPreReminder){
         		message = "10 Menit lagi memasuki waktu adzan " + reminderRequest.name + " untuk daerah Bandung dan Sekitarnya, ayo segera bersiap-siap";		
         	} else {
-        		message = "Saatnya adzan " + reminderRequest.name + " untuk daerah Bandun dan Sekitarnya, ayo mari kita shalat";
+        		message = "Saatnya adzan " + reminderRequest.name + " untuk daerah Bandung dan Sekitarnya, ayo mari kita shalat";
         	}
         }
         else {
