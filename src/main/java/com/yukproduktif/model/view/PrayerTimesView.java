@@ -67,7 +67,7 @@ public class PrayerTimesView {
 		viewMessage = new TemplateMessage(TITLE, carousel);
 		
 		String[] hij = prayerTimes.hijriyah.split("/");
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("d/M/Y");
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("d/M/yyyy");
 		Date now = null;
 		try {
 			now = dateFormatter.parse(prayerTimes.masehi);
@@ -105,7 +105,7 @@ public class PrayerTimesView {
 	}
 	
 	private String getMonth(int month){
-		String[] months = {"Januri", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
+		String[] months = {"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
 		                 "November", "Desember"};
 		return months[month];
 	}

@@ -247,10 +247,22 @@ public class BotController
         Gson gson = new Gson();
         ReminderRequest reminderRequest = gson.fromJson(data, ReminderRequest.class);
     	String ID_TARGET = "Ccb45584fc566bd5270591a3d010ae4b0";
-        String MESSAGE = "Saatnya adzan " + reminderRequest.name+ " untuk daerah Bandung dan sekitarnya.";
+        //String MESSAGE = "Saatnya adzan " + reminderRequest.name+ " untuk daerah Bandung dan sekitarnya.";
+        String message = "";
+        if (reminderRequest.type.equals("fardh")){
+        	boolean isPreReminder = reminderRequest.status;
+        	if (isPreReminder){
+        		message = "10 Menit lagi memasuki waktu adzan " + reminderRequest.name + " untuk daerah Bandung dan Sekitarnya, ayo segera bersiap-siap";		
+        	} else {
+        		message = "Saatnya adzan " + reminderRequest.name + " untuk daerah Bandun dan Sekitarnya, ayo mari kita shalat";
+        	}
+        }
+        else {
+        	message = "Ayo mari kita laksanakan shalat " + reminderRequest.name;
+        }
 
     	botService.setChannelAccessToken(lChannelAccessToken);
-    	botService.pushMessage(ID_TARGET, MESSAGE);
+    	botService.pushMessage(ID_TARGET, message);
     	
     	/**
     	 * to-do :
